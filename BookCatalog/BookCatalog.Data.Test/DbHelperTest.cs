@@ -24,5 +24,17 @@ namespace BookCatalog.Data.Test
 
             Assert.IsNotNull(books);
         }
+
+        [TestMethod]
+        public void GetBooksAuthorsTest()
+        {
+            var dbHelper = new DbHelper(this.connString);
+
+            List<Book> books = dbHelper.GetBooks();
+            Dictionary<int, string> booksAuthors = dbHelper.GetBooksAuthors(books);
+
+            Assert.IsNotNull(books);
+            Assert.IsNotNull(booksAuthors);
+        }
     }
 }
