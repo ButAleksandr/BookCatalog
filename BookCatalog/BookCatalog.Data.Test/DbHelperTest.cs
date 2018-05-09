@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BookCatalog.Data.Entity.Book;
+using BookCatalog.Data.Entity.Book.ViewModel;
 using System.Collections.Generic;
 
 namespace BookCatalog.Data.Test
@@ -20,21 +20,9 @@ namespace BookCatalog.Data.Test
         {
             var dbHelper = new DbHelper(this.connString);
 
-            List<Book> books = dbHelper.GetBooks();
+            List<BookWithAuthor> books = dbHelper.GetBooks();
 
             Assert.IsNotNull(books);
-        }
-
-        [TestMethod]
-        public void GetBooksAuthorsTest()
-        {
-            var dbHelper = new DbHelper(this.connString);
-
-            List<Book> books = dbHelper.GetBooks();
-            Dictionary<int, string> booksAuthors = dbHelper.GetBooksAuthors(books);
-
-            Assert.IsNotNull(books);
-            Assert.IsNotNull(booksAuthors);
         }
     }
 }
