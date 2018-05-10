@@ -1,5 +1,5 @@
 ﻿
-CREATE TABLE [dbo].[Author]
+CREATE TABLE [dbo].[Authors]
                            ( 
              [Id]        INT NOT NULL,
              [FirstName] NVARCHAR(60) NOT NULL,

@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[AuthorsBooks]
                                  ( 
              [AuthorId] INT NOT NULL,
              [BookId]   INT NOT NULL,
-             CONSTRAINT [FK_AuthorsBooks_Author] FOREIGN KEY([AuthorId]) REFERENCES [dbo].[Author]([Id]),
+             CONSTRAINT [FK_AuthorsBooks_Author] FOREIGN KEY([AuthorId]) REFERENCES [dbo].[Authors]([Id]),
              CONSTRAINT [FK_AuthorsBooks_Books] FOREIGN KEY([BookId]) REFERENCES [dbo].[Books]([Id])
                                  );
 GO
@@ -21,7 +21,7 @@ BEGIN
                              FROM [inserted]);
          
 	-- Update book count for the author
-    UPDATE [Author]
+    UPDATE [Authors]
     SET [BookCount] = [BookCount] + 1
     WHERE [Id] = @authorId;
 END;
@@ -40,7 +40,7 @@ BEGIN
                              FROM [deleted]);
          
 	-- Update book count for the author
-    UPDATE [Author]
+    UPDATE [Authors]
     SET [BookCount] = [BookCount] - 1
     WHERE [Id] = @authorId;
 END;

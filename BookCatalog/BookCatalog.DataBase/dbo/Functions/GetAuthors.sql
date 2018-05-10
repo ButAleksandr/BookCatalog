@@ -16,8 +16,8 @@ BEGIN
 
     INSERT INTO @authorNames
     SELECT [FirstName]+' '+[LastName] AS [AuthorFullName]
-    FROM [dbo].[Author]
-    WHERE [Author].[Id] IN (SELECT [AuthorId]
+    FROM [dbo].[Authors]
+    WHERE [Authors].[Id] IN (SELECT [AuthorId]
                             FROM [dbo].[AuthorsBooks]
                             WHERE [AuthorsBooks].[BookId] = @bookId);
 
