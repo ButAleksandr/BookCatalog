@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BookCatalog.Data.Entity.Book.ViewModel;
 using System.Collections.Generic;
+using BookCatalog.Common.Interfaces.Data;
 
 namespace BookCatalog.Data.Test
 {
@@ -18,10 +19,11 @@ namespace BookCatalog.Data.Test
         [TestMethod]
         public void GetBooksTest()
         {
-            var dbHelper = new DbHelper(this.connString);
+            IDbHelper dbHelper = new DbHelper(this.connString);
 
-            List<BookWithAuthor> books = dbHelper.GetBooks();
-
+            // Fill books fields
+            List<BookWithAuthor> books = (List<BookWithAuthor>)dbHelper.GetBooks();
+            
             Assert.IsNotNull(books);
         }
     }

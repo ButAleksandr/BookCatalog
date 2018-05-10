@@ -1,6 +1,6 @@
 ﻿namespace BookCatalog.Data.Entity.Book
 {
-    public class Book
+    public class Book : Common.Interfaces.Entity.IBook
     {
         public int Id { get; set; }
 

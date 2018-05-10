@@ -7,7 +7,5 @@ SELECT [Id]
       ,[Rate]
       ,[PageCount]
       ,[ReleaseDate]
-      ,[dbo].[GetAuthors]
-       ([Id]) AS [Authors]
 FROM [dbo].[Books];
     

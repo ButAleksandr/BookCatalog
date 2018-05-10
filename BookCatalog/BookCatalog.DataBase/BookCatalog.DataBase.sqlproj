@@ -66,9 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Books.sql" />
-    <Build Include="dbo\Tables\Author.sql" />
+    <Build Include="dbo\Tables\Authors.sql" />
     <Build Include="dbo\Tables\AuthorsBooks.sql" />
     <Build Include="dbo\Views\BooksView.sql" />
     <Build Include="dbo\Functions\GetAuthors.sql" />
+    <Build Include="dbo\Views\AuthorsView.sql" />
   </ItemGroup>
 </Project>

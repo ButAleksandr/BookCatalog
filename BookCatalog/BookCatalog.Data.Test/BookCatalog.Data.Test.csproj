@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BookCatalog.Common\BookCatalog.Common.csproj">
+      <Project>{B783730E-B581-40AD-A2A4-DD3307CFF1CD}</Project>
+      <Name>BookCatalog.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BookCatalog.Data.Entity\BookCatalog.Data.Entity.csproj">
       <Project>{d6690ad8-4c1d-451d-87b8-048b566dda90}</Project>
       <Name>BookCatalog.Data.Entity</Name>
