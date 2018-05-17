@@ -1,6 +1,6 @@
-﻿namespace BookCatalog.Data.Entity.Author
+﻿namespace BookCatalog.Portal.ViewModel.Author
 {
-    public class AuthorEM
+    public class AuthorVM
     {
         public int Id { get; set; }
 

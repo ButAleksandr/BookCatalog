@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D6690AD8-4C1D-451D-87B8-048B566DDA90}</ProjectGuid>
+    <ProjectGuid>{5B3ED041-EEA1-4E33-BB22-4CFDEE36B310}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BookCatalog.Data.Entity</RootNamespace>
-    <AssemblyName>BookCatalog.Data.Entity</AssemblyName>
+    <RootNamespace>BookCatalog.ViewModel</RootNamespace>
+    <AssemblyName>BookCatalog.ViewModel</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,9 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Author\Author.cs" />
-    <Compile Include="Book\Book.cs" />
+    <Compile Include="Author\AuthorVM.cs" />
+    <Compile Include="Book\BookVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
