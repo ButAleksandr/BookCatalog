@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.4\lib\net451\Dapper.dll</HintPath>
     </Reference>
@@ -48,17 +51,26 @@
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookDMTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDataManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -69,13 +81,17 @@
       <Project>{ec025376-db23-4bbd-8724-9a317807d1d9}</Project>
       <Name>BookCatalog.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BookCatalog.Common\BookCatalog.Common.csproj">
+      <Project>{0e19b147-044f-4829-84af-37c0c0286dc9}</Project>
+      <Name>BookCatalog.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BookCatalog.Data.Entity\BookCatalog.Data.Entity.csproj">
       <Project>{d6690ad8-4c1d-451d-87b8-048b566dda90}</Project>
       <Name>BookCatalog.Data.Entity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BookCatalog.ViewModel\BookCatalog.Portal.ViewModel.csproj">
+    <ProjectReference Include="..\BookCatalog.ViewModel\BookCatalog.ViewModel.csproj">
       <Project>{5B3ED041-EEA1-4E33-BB22-4CFDEE36B310}</Project>
-      <Name>BookCatalog.Portal.ViewModel</Name>
+      <Name>BookCatalog.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

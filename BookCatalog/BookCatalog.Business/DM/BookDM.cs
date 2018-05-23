@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BookCatalog.Data;
 using BookCatalog.Data.Entity.Author;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,25 +6,27 @@ using System.Threading.Tasks;
 using BookCatalog.Portal.ViewModel.Book;
 using BookCatalog.Portal.ViewModel.Author;
 using BookCatalog.Data.Entity.Book;
+using BookCatalog.Common.Data;
+using BookCatalog.Common.Business;
 
 namespace BookCatalog.Business.DM
 {
-    public class BookDM
+    public class BookDM : IBookDM
     {
-        private readonly Repository repository;
+        private readonly IRepository repository;
         
-        public BookDM(string connString)
+        public BookDM(IRepository repository)
         {
-            repository = new Repository(connString);
-        }  
+            this.repository = repository;
 
-        public List<BookVM> GetBooksList()
-        {
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<BookEM, BookVM>();
                 cfg.CreateMap<AuthorVM, AuthorVM>();
             });
+        }  
 
+        public List<BookVM> GetBooksList()
+        {
             var bookVMs = repository.GetBooks().Select(x => Mapper.Map<BookVM>(x)).ToList();
 
             GetBooksAuthors(bookVMs);

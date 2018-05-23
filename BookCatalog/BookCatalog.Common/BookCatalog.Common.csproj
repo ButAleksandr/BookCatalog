@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B783730E-B581-40AD-A2A4-DD3307CFF1CD}</ProjectGuid>
+    <ProjectGuid>{0E19B147-044F-4829-84AF-37C0C0286DC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BookCatalog.Common</RootNamespace>
@@ -40,12 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\Data\IDbHelper.cs" />
-    <Compile Include="Interfaces\Entity\IAuthor.cs" />
-    <Compile Include="Interfaces\Entity\IBook.cs" />
-    <Compile Include="Interfaces\ViewModel\IBookWithAuthor.cs" />
+    <Compile Include="Business\IBookDM.cs" />
+    <Compile Include="Data\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BookCatalog.Data.Entity\BookCatalog.Data.Entity.csproj">
+      <Project>{d6690ad8-4c1d-451d-87b8-048b566dda90}</Project>
+      <Name>BookCatalog.Data.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookCatalog.ViewModel\BookCatalog.ViewModel.csproj">
+      <Project>{5b3ed041-eea1-4e33-bb22-4cfdee36b310}</Project>
+      <Name>BookCatalog.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

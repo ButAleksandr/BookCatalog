@@ -5,10 +5,11 @@ using Dapper;
 using BookCatalog.Data.Entity.Author;
 using System.Threading.Tasks;
 using BookCatalog.Data.Entity.Book;
+using BookCatalog.Common.Data;
 
 namespace BookCatalog.Data
 {
-    public class Repository
+    public class Repository : IRepository
     {
         private readonly string connString;
 

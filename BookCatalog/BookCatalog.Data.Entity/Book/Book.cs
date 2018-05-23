@@ -6,7 +6,7 @@
 
         public string Name { get; set; }
 
-        public string PageCount { get; set; }
+        public int PageCount { get; set; }
 
         public System.DateTime ReleaseDate { get; set; }
 
