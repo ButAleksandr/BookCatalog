@@ -77,6 +77,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BookCatalog.Bootstrap\BookCatalog.Bootstrap.csproj">
+      <Project>{78736b51-2ddc-4bee-becd-2d58e1690096}</Project>
+      <Name>BookCatalog.Bootstrap</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BookCatalog.Business\BookCatalog.Business.csproj">
       <Project>{ec025376-db23-4bbd-8724-9a317807d1d9}</Project>
       <Name>BookCatalog.Business</Name>
