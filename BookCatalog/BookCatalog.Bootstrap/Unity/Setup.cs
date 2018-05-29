@@ -1,5 +1,6 @@
-﻿using System;
-using Unity;
+﻿using BookCatalog.Common.Bootstrap;
+using Microsoft.Practices.Unity;
+using System;
 
 namespace BookCatalog.Bootstrap.Unity
 {
@@ -20,6 +21,11 @@ namespace BookCatalog.Bootstrap.Unity
         public static IUnityContainer GetUnityConfig()
         {
             return container.Value;
+        }
+
+        public static IServiceProviderFactory CreateFactory(IInternalRequestContext context)
+        {
+            return new ServiceProviderFactory(container.Value, context);
         }
     }
 }
