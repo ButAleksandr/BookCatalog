@@ -1,4 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
+using BookCatalog.Common.Business;
+using BookCatalog.Common.Data;
+using System.Configuration;
 
 namespace BookCatalog.Bootstrap.Unity
 {
@@ -7,16 +10,20 @@ namespace BookCatalog.Bootstrap.Unity
         public static void RegisterTypes(IUnityContainer _container)
         {
             InitDataLayer(_container);
+            InitBusinessLayer(_container);
         }
 
         private static void InitDataLayer(IUnityContainer container)
         {
-            container.RegisterType<Common.Data.IRepository, Data.Repository>();
+            var connString = ConfigurationManager.ConnectionStrings["BookCatalog"].ConnectionString;
+
+            container.RegisterType<IRepository, Data.Repository>(new InjectionConstructor(connString));
         }
 
         private static void InitBusinessLayer(IUnityContainer container)
         {
-            container.RegisterType<Common.Business.IBookDM, Business.DM.BookDM>();
+            container.RegisterType<IBookDM, Business.DM.BookDM>(
+                new InjectionConstructor(container.Resolve<IRepository>()));
         }
     }
 }

@@ -5,8 +5,6 @@ namespace BookCatalog.Common.Business
 {
     public interface IBusinessContext
     {
-        IDataContext DataContext { get; }
-
         IServiceProviderFactory Factory { get; }
     }
 }

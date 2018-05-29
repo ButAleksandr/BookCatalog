@@ -1,4 +1,6 @@
-﻿using BookCatalog.Portal.Context;
+﻿using BookCatalog.Common.Bootstrap;
+using BookCatalog.Common.Request;
+using BookCatalog.Portal.Context;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,19 +12,31 @@ namespace BookCatalog.Portal.Controllers
 
         private DefaultContext context = default(DefaultContext);
 
-        public HttpContextBase RequestContext
+        private IServiceProviderFactory _modelFactory = default(IServiceProviderFactory);
+
+        public IRequestContext RequestContext
         {
             get
             {
-                lock (this.mutex)
+                if (this.context == null)
                 {
-                    if (this.context == null)
-                    {
-                        this.context = new DefaultContext();
-                    }
+                    this.context = new DefaultContext();
                 }
 
                 return this.context;
+            }
+        }
+
+        protected IServiceProviderFactory Factory
+        {
+            get
+            {
+                if (this._modelFactory == null)
+                {
+                    this._modelFactory = this.RequestContext.Factory;
+                }
+
+                return this._modelFactory;
             }
         }
     }

@@ -15,14 +15,17 @@ namespace BookCatalog.Business.DM
     {
         private readonly IRepository repository;
         
-        public BookDM(IRepository repository)
+        static BookDM()
         {
-            this.repository = repository;
-
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<BookEM, BookVM>();
                 cfg.CreateMap<AuthorVM, AuthorVM>();
             });
+        }
+
+        public BookDM(IRepository repository)
+        {
+            this.repository = repository;         
         }  
 
         public List<BookVM> GetBooksList()

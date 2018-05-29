@@ -4,6 +4,8 @@ namespace BookCatalog.Common.Bootstrap
 {
     public interface IServiceProviderFactory
     {
+        serviceType GetService<serviceType>();
+
         TService GetService<TService>(params object[] constructParams);
 
         TService GetMappingService<TService>(string name, params object[] param);

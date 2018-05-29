@@ -53,7 +53,8 @@ namespace BookCatalog.Bootstrap
         /// <returns> A service object of type serviceType.-or- null if there is no service object of type serviceType.</returns>
         public object GetService(Type serviceType)
         {
-            return this.container.Resolve(serviceType, new ServiceProviderParametersResolver(this.requestContext, null, this.isSelectedType(serviceType)));
+            var paremeters = new ServiceProviderParametersResolver(this.requestContext, null, this.isSelectedType(serviceType));
+            return this.container.Resolve(serviceType, paremeters);
         }
 
         #endregion

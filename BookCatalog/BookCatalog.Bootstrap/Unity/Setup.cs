@@ -4,7 +4,7 @@ using System;
 
 namespace BookCatalog.Bootstrap.Unity
 {
-    class Setup
+    public class Setup
     {
         private static Lazy<IUnityContainer> container = new Lazy<IUnityContainer>(() =>
         {

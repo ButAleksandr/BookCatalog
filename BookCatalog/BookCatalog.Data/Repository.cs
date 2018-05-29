@@ -36,11 +36,11 @@ namespace BookCatalog.Data
 
             using (var db = new SqlConnection(this.connString))
             {
-                var getAuthorsTask = db.QueryAsync<AuthorEM>(query, new { bookId });
+                var authors = db.Query<AuthorEM>(query, new { bookId });
 
-                var keyValuePair = new KeyValuePair<int, IEnumerable<AuthorEM>>(bookId, await getAuthorsTask);
+                var keyValuePair = new KeyValuePair<int, IEnumerable<AuthorEM>>(bookId, authors);
 
-                return keyValuePair;
+                return await Task.FromResult(keyValuePair);
             }
         }
     }
