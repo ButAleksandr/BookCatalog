@@ -7,6 +7,8 @@ namespace BookCatalog.Portal
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            #region Default
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -25,6 +27,15 @@ namespace BookCatalog.Portal
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            #endregion
+
+            #region JS Bundles
+
+            bundles.Add(new ScriptBundle("~/Scripts/Knockout").Include(
+                      "~/Scripts/knockout-{version}.js"));
+
+            #endregion
         }
     }
 }

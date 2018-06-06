@@ -7,14 +7,16 @@ namespace BookCatalog.Portal.Controllers
     {
         public ActionResult Index()
         {
-            return ShowBooksList();
+            return View();
         }
 
-        public ActionResult ShowBooksList()
+        public ActionResult GetBooksList()
         {
             var bookDM = Factory.GetService<IBookDM>();
 
-            return null;
+            var result = bookDM.GetBooksList();
+
+            return Success(result);
         }
     }
 }

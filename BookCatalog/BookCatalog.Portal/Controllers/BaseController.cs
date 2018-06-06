@@ -1,6 +1,7 @@
 ﻿using BookCatalog.Common.Bootstrap;
 using BookCatalog.Common.Request;
 using BookCatalog.Portal.Context;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -38,6 +39,17 @@ namespace BookCatalog.Portal.Controllers
 
                 return this._modelFactory;
             }
+        }
+
+        protected JsonResult Success(object model = null)
+        {
+            return new JsonResult()
+            {
+                ContentEncoding = Encoding.UTF8,
+                ContentType = "application/json",
+                Data = model,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+            };
         }
     }
 }
