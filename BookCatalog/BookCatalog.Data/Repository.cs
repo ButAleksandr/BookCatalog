@@ -43,5 +43,15 @@ namespace BookCatalog.Data
                 return await Task.FromResult(keyValuePair);
             }
         }
+
+        public void DeleteBook(int bookId)
+        {
+            var result = new List<BookEM>();
+
+            using (var db = new SqlConnection(this.connString))
+            {
+                db.Execute("EXEC [dbo].[Delete_Book] @bookId", new { bookId = bookId });
+            }
+        }
     }
 }

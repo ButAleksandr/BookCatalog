@@ -6,5 +6,7 @@ namespace BookCatalog.Common.Business
     public interface IBookDM
     {
         List<BookVM> GetBooksList();
+
+        void DeleteBook(int bookId);
     }
 }

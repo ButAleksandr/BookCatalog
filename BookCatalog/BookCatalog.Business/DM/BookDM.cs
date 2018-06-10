@@ -37,6 +37,11 @@ namespace BookCatalog.Business.DM
             return bookVMs;
         }
 
+        public void DeleteBook(int bookId)
+        {
+            repository.DeleteBook(bookId);
+        }
+
         private void GetBooksAuthors(List<BookVM> books)
         {
             var taskList = new List<Task<KeyValuePair<int, IEnumerable<AuthorEM>>>>();

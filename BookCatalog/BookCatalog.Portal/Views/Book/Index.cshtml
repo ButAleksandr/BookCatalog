@@ -10,23 +10,17 @@
 
 <h2>Books</h2>
 
-<div class="row">
-    <table id="bookTable" class="table table-striped thead-dark">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Page Count</th>
-                <th>Release Date</th>
-                <th>Rate</th>
-                <th>Authors</th>
-            </tr>
-        </thead>
-    </table>
-</div>
+@Html.Partial("_BookTable")
 
 @section scripts
 {
     @Scripts.Render("~/Scripts/Knockout")
     @Scripts.Render("https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js")
     @Scripts.Render("~/Scripts/Book/book-table.js")
+
+    <script>
+        $(document).ready(function () {
+            BookTable.Initialize();
+        });
+    </script>
 }

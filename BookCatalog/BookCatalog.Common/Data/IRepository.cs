@@ -10,5 +10,7 @@ namespace BookCatalog.Common.Data
         List<BookEM> GetBooks();
 
         Task<KeyValuePair<int, IEnumerable<AuthorEM>>> GetBookAuthors(int bookId);
+
+        void DeleteBook(int bookId);
     }
 }

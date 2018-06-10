@@ -1,4 +1,5 @@
 ﻿
+
 CREATE TABLE [dbo].[AuthorsBooks]
                                  ( 
              [AuthorId] INT NOT NULL,
@@ -36,13 +37,21 @@ BEGIN
     SET NOCOUNT ON;
 
 	-- Get Author Id
-    DECLARE @authorId INT = (SELECT [AuthorId]
-                             FROM [deleted]);
+    DECLARE @authorId TABLE
+                           ( 
+                            [Ids] INT NOT NULL
+                           );
+
+    INSERT INTO @authorId
+    SELECT [AuthorID]
+    FROM [AuthorsBooks]
+    WHERE [BookId] IN (SELECT [BookId]
+                       FROM [deleted]);
          
 	-- Update book count for the author
     UPDATE [Authors]
     SET [BookCount] = [BookCount] - 1
-    WHERE [Id] = @authorId;
+    WHERE [Id] IN(SELECT [Ids] FROM @authorId);
 END;
 GO
 

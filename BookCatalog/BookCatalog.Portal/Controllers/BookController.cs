@@ -5,11 +5,13 @@ namespace BookCatalog.Portal.Controllers
 {
     public class BookController : BaseController
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         public ActionResult GetBooksList()
         {
             var bookDM = Factory.GetService<IBookDM>();
@@ -17,6 +19,14 @@ namespace BookCatalog.Portal.Controllers
             var result = bookDM.GetBooksList();
 
             return Success(result);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int bookId)
+        {
+            Factory.GetService<IBookDM>().DeleteBook(bookId);
+
+            return Success();
         }
     }
 }

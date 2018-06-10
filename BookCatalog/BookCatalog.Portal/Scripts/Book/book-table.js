@@ -2,20 +2,37 @@
 
 (function () {
     var self = this;
+    const booksListUrl = window.rootUrl + "Book/GetBooksList";
+    const bookTableSelector = '#bookTable';
+    const Urls = {
+        DeleteBook: function (bookId) {
+            return window.rootUrl + "Book/Delete?bookId=" + bookId;
+        }
+    }
+    self.Initialize = function () {
+        self.initBooksTable(self.initBindings);
+    }
 
-    self.Initialize = function () {        
-        $('#bookTable').DataTable({
+    self.initBindings = function () {
+        ko.options.useOnlyNativeEvents = true;
+        ko.applyBindings(self, $(bookTableSelector)[0]);
+    }
+
+    self.initBooksTable = function (postInitAction) {
+        $(bookTableSelector).dataTable().fnDestroy();
+        $(bookTableSelector).DataTable({
             ajax: {
-                url: window.rootUrl + "Book/GetBooksList",
-                dataSrc: ""
-            },            
+                url: booksListUrl,
+                dataSrc: "Value"
+            },
             type: "GET",
             columns: [
                 { data: "Name" },
                 { data: "PageCount" },
                 { data: "ReleaseDate" },
                 { data: "Rate" },
-                { data: "Authors" }
+                { data: "Authors" },
+                { data: "Id" }
             ],
             columnDefs: [
                 {
@@ -45,10 +62,39 @@
                     render: function (data, type, row) {
                         return eval(row.ReleaseDate.replace(new RegExp('/', 'g'), "")).toLocaleString('en-US');
                     }
+                },
+                {
+                    targets: [5],
+                    render: function (data, type, row) {
+                        var btnElement = $("<button></button>");
+                        btnElement
+                            .attr({
+                                "data-bind": "event: { click: function(data, event) { deleteBook('" + row.Id + "') } }"
+                            })
+                            .text("Delete")
+                            .addClass("btn btn-primary");
+
+                        return btnElement.prop('outerHTML');
+                    }
                 }
-            ]
+            ],
+            initComplete: postInitAction
         });
     }
-}).apply(BookTable);
 
-BookTable.Initialize();
+    self.deleteBook = function (bookId) {
+        jQuery.ajax({
+            url: Urls.DeleteBook(bookId),
+            type: "GET",
+            success: function () {
+                console.log("Book deleted.");                
+
+                self.Initialize();
+            }
+        });
+    };
+
+    self.editBookUrl = function (bookId) {
+        return window.rootUrl + "Book/DeleteBook/" + bookId;
+    };
+}).apply(BookTable);

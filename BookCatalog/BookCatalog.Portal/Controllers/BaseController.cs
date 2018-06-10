@@ -47,7 +47,7 @@ namespace BookCatalog.Portal.Controllers
             {
                 ContentEncoding = Encoding.UTF8,
                 ContentType = "application/json",
-                Data = model,
+                Data = new { Massage = "OK", Value = model },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
             };
         }
