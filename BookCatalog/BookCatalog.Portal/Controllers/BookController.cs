@@ -22,6 +22,12 @@ namespace BookCatalog.Portal.Controllers
         }
 
         [HttpGet]
+        public ActionResult Edit(int bookId)
+        {
+            return null;
+        }
+
+        [HttpGet]
         public ActionResult Delete(int bookId)
         {
             Factory.GetService<IBookDM>().DeleteBook(bookId);

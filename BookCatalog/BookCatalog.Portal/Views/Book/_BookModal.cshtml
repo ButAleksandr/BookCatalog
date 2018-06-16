@@ -1,0 +1,78 @@
+﻿<div id="bookModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit book</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="bookForm">
+                    <input type="hidden" id="id" name="Id" data-bind="Id">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="bookName">
+                                    Name
+                                </label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="bookName"
+                                       name="Name"
+                                       data-bind="Name"
+                                       maxlength="60">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="pageCount">
+                                    Release date
+                                </label>
+                                <input type="date"
+                                       class="form-control"
+                                       id="releaseDate"
+                                       name="ReleaseDate"
+                                       data-bind="ReleaseDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="pageCount">
+                                    Page count
+                                </label>
+                                <input type="number"                                       
+                                       min="0" 
+                                       max="10000"
+                                       class="form-control"
+                                       id="pageCount"
+                                       name="PageCount"
+                                       data-bind="PageCount">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="pageCount">
+                                    Rate
+                                </label>
+                                <input type="number"
+                                       min="0" 
+                                       max="5"
+                                       class="form-control"
+                                       id="rate"
+                                       name="Rate"
+                                       data-bind="Rate">
+                            </div>
+                        </div>
+                    </div>
+                </form>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

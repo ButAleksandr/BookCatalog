@@ -63,6 +63,7 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Views" />
     <Folder Include="dbo\Functions" />
+    <Folder Include="dbo\Storeed Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Books.sql" />
@@ -71,5 +72,6 @@
     <Build Include="dbo\Views\BooksView.sql" />
     <Build Include="dbo\Functions\GetAuthors.sql" />
     <Build Include="dbo\Views\AuthorsView.sql" />
+    <Build Include="dbo\Storeed Procedures\Delete_Book.sql" />
   </ItemGroup>
 </Project>

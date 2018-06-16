@@ -11,16 +11,19 @@
 <h2>Books</h2>
 
 @Html.Partial("_BookTable")
+@Html.Partial("_BookModal")
 
 @section scripts
 {
     @Scripts.Render("~/Scripts/Knockout")
     @Scripts.Render("https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js")
     @Scripts.Render("~/Scripts/Book/book-table.js")
+    @Scripts.Render("~/Scripts/Book/book-modal.js")
 
     <script>
         $(document).ready(function () {
             BookTable.Initialize();
+            BookModal.Initialize();
         });
     </script>
 }

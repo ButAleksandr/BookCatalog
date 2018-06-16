@@ -14,7 +14,7 @@
     }
 
     self.initBindings = function () {
-        ko.options.useOnlyNativeEvents = true;
+        ko.cleanNode($(bookTableSelector)[0]);
         ko.applyBindings(self, $(bookTableSelector)[0]);
     }
 
@@ -69,7 +69,7 @@
                         var btnElement = $("<button></button>");
                         btnElement
                             .attr({
-                                "data-bind": "event: { click: function(data, event) { deleteBook('" + row.Id + "') } }"
+                                "data-bind": "event: { click: function(data, event) { BookTable.deleteBook('" + row.Id + "') } }"
                             })
                             .text("Delete")
                             .addClass("btn btn-primary");
