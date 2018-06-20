@@ -22,8 +22,12 @@
 
     <script>
         $(document).ready(function () {
+            const bookModalSettings = {
+                getBookUrl: '@Url.Action("GetBook", "Book")',
+                showAfterInit: false
+            }
             BookTable.Initialize();
-            BookModal.Initialize();
+            BookModal.Initialize(null, bookModalSettings);
         });
     </script>
 }

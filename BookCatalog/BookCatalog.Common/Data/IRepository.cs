@@ -7,6 +7,8 @@ namespace BookCatalog.Common.Data
 {
     public interface IRepository
     {
+        BookEM GetBook(int bookId);
+
         List<BookEM> GetBooks();
 
         Task<KeyValuePair<int, IEnumerable<AuthorEM>>> GetBookAuthors(int bookId);

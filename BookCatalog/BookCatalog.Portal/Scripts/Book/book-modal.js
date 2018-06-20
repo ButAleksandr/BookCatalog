@@ -1,30 +1,80 @@
 ﻿var BookModal = BookModal || {};
 
 (function () {
-    var self = this;
-    const modalSelector = '#bookModal',
-        bookFormId = '#bookForm';
-    const Urls = {
-        Edit: function (bookId) {
-            return window.rootUrl + "Book/Delete?bookId=" + bookId;
-        }
-    }
+    var self = this,
+        initStatus = {
+            Validation: false,
+            Bindings: false
+        },
+        bookEditBaseUrl = '';
 
-    self.initBookModalVM = function () {
+    const modalSelector = '#bookModal',
+        bookFormId = '#bookForm',
+        Urls = {
+            EditBook: function (bookId) {
+                return bookEditBaseUrl + "?bookId=" + bookId;
+            }
+        }
+
+    self.VM = function () {
         var inner = this;
 
-        inner.Id = ko.observable(0);
-        inner.Name = ko.observable('');
-        inner.PageCount = ko.observable(0);
-        inner.ReleaseDate = ko.observable('');
-        inner.Rate = ko.observable(0) ;
-        inner.Authors = ko.observable([]);
+        VMObject = {
+            Id: inner.Id(),
+            Name: inner.Name(),
+            PageCount: inner.PageCount(),
+            ReleaseDate: inner.ReleaseDate(),
+            Rate: inner.Rate(),
+            Authors: inner.Authors()
+        };
+
+        return VMObject;
     }
 
-    self.Initialize = function () {
-        self.initBookModalVM();
-        self.initBindings();
-        self.applyValidation(bookFormId);
+    self.initVM = function (initObject, bookModalSettings) {
+        var inner = this;
+
+        if (!initObject) {
+            initObject = {
+                Id: 0,
+                Name: '',
+                PageCount: '',
+                ReleaseDate: '',
+                Rate: 0,
+                Authors: []
+            };
+        }
+
+        inner.Id = ko.observable(initObject.Id);
+        inner.Name = ko.observable(initObject.Name);
+        inner.PageCount = ko.observable(initObject.PageCount);
+        inner.ReleaseDate = ko.observable(initObject.ReleaseDate);
+        inner.Rate = ko.observable(initObject.Rate);
+        inner.Authors = ko.observable(initObject.Authors);
+
+        if (bookModalSettings
+            && bookModalSettings.hasOwnProperty('showAfterInit')
+            && bookModalSettings.showAfterInit) {
+            self.show();            
+        };
+    }
+
+    self.Initialize = function (bookId, bookModalSettings) {
+        self.initVariables(bookModalSettings);
+
+        if (!bookId) {
+            self.initVM(null, bookModalSettings);
+        } else {
+            self.loadBook(bookId, bookModalSettings);
+        }        
+
+        if (!initStatus.Bindings) {
+            self.initBindings();
+        }
+
+        if (!initStatus.Validation) {
+            self.applyValidation(bookFormId);
+        }
     }
 
     self.applyValidation = function (formId) {
@@ -41,45 +91,58 @@
                 },
                 PageCount: {
                     required: true,
-                    maxValue: 10000,
-                    minValue: 1
+                    max: 10000,
+                    min: 1
                 },
                 Rate: {
                     required: true,
-                    maxValue: 5,
-                    minValue: 1
+                    max: 5,
+                    min: 1
                 }
             },
             errorPlacement: function (error, element) {
-                var cont = $(element).parent('.form-group');
-                if (cont.length > 0) {
-                    cont.after(error);
-                } else {
-                    element.after(error);
-                }
+                element.after(error);
             },
             highlight: function (element) {
                 $(element)
                     .closest('.form-group').addClass('has-error');
             },
             unhighlight: function (element) {
-                $(element)
-                    .closest('.form-group').removeClass('has-error');
+                $(element).closest('.form-group').removeClass('has-error');                
             },
             success: function (label) {
                 label.closest('.form-group').removeClass('has-error');
-            },
+            }
         });
 
         $(formId).valid();
+
+        initStatus.Validation = true;
     }
 
-    self.Show = function (bookId) {
+    self.show = function () {
         $(modalSelector).modal("show");
     }
 
+    self.loadBook = function (bookId, bookModalSettings) {
+        $.get(Urls.EditBook(bookId))
+            .done(function (result) {
+                if (result.Massage = "OK") {
+                    self.initVM(result.Value, bookModalSettings);
+                }
+            });
+    }
+
+    self.initVariables = function (bookModalSettings) {
+        if (bookModalSettings && bookModalSettings.hasOwnProperty('getBookUrl')) {
+            bookEditBaseUrl = bookModalSettings.getBookUrl;
+        }
+    }
+
     self.initBindings = function () {
-        ko.cleanNode($(modalSelector)[0]);
-        ko.applyBindings(self, $(modalSelector)[0]);
+        //ko.cleanNode($(modalSelector)[0]);
+        ko.applyBindings(self, $(bookFormId)[0]);
+
+        initStatus.Bindings = true;
     }
 }).apply(BookModal);

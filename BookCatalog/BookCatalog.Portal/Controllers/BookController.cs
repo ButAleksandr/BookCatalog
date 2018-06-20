@@ -12,6 +12,16 @@ namespace BookCatalog.Portal.Controllers
         }
 
         [HttpGet]
+        public ActionResult GetBook(int bookId)
+        {
+            var bookDM = Factory.GetService<IBookDM>();
+
+            var result = bookDM.GetBook(bookId);
+
+            return Success(result);
+        }
+
+        [HttpGet]
         public ActionResult GetBooksList()
         {
             var bookDM = Factory.GetService<IBookDM>();

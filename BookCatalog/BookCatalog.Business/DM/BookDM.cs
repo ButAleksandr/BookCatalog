@@ -26,7 +26,16 @@ namespace BookCatalog.Business.DM
         public BookDM(IRepository repository)
         {
             this.repository = repository;         
-        }  
+        }
+
+        public BookVM GetBook(int bookId)
+        {
+            var bookVM = Enumerable.Repeat(Mapper.Map<BookVM>(repository.GetBook(bookId)), 1).ToList();
+            
+            GetBooksAuthors(bookVM);
+
+            return bookVM.FirstOrDefault();
+        }
 
         public List<BookVM> GetBooksList()
         {

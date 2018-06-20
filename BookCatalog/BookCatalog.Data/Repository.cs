@@ -18,6 +18,21 @@ namespace BookCatalog.Data
             this.connString = connString;
         }
 
+        public BookEM GetBook(int bookId)
+        {
+            var result = new BookEM();
+
+            using (var db = new SqlConnection(this.connString))
+            {
+                result = db.Query<BookEM>("Select * From [dbo].[BooksView] where [Id] = @Id",
+                        new { Id = bookId })
+                        .First()
+                    ?? result;
+            }
+
+            return result;
+        }
+
         public List<BookEM> GetBooks()
         {
             var result = new List<BookEM>();
