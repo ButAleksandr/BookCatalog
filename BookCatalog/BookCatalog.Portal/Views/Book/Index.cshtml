@@ -5,11 +5,16 @@
 
 @section style
 {
+    @Styles.Render("https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css")
     @Styles.Render("https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css")
 }
 
 <h2>Books</h2>
-
+<div class="row mb-3" style="text-align: right">
+    <div class="col-xs-12">
+        <button class="btn btn-primary" onclick="BookModal.Initialize(0, { showAfterInit: true });">Create book</button>
+    </div>
+</div>
 @Html.Partial("_BookTable")
 @Html.Partial("_BookModal")
 
@@ -24,6 +29,7 @@
         $(document).ready(function () {
             const bookModalSettings = {
                 getBookUrl: '@Url.Action("GetBook", "Book")',
+                saveBookUrl: '@Url.Action("Save", "Book")',
                 showAfterInit: false
             }
             BookTable.Initialize();

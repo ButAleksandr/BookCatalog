@@ -32,15 +32,19 @@ namespace BookCatalog.Portal.Controllers
             return Success(result);
         }
 
-        [HttpGet]
-        public ActionResult Edit(BookVM bookVM)
+        [HttpPost]
+        public ActionResult Save(BookVM bookVM)
         {
             if (ModelState.IsValid)
             {
+                var bookDM = Factory.GetService<IBookDM>();
 
+                var result = bookDM.Save(bookVM);
+
+                return Success(result);
             }
 
-            return null;
+            return Fail(bookVM, "ModelState.IsValid = False");
         }
 
         [HttpGet]

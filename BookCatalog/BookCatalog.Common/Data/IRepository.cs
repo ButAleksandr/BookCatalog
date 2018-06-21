@@ -13,6 +13,12 @@ namespace BookCatalog.Common.Data
 
         Task<KeyValuePair<int, IEnumerable<AuthorEM>>> GetBookAuthors(int bookId);
 
+        bool BookIsExist(BookEM bookEM);
+
+        BookEM Save(BookEM bookEM);
+
+        BookEM Update(BookEM bookEM);
+
         void DeleteBook(int bookId);
     }
 }

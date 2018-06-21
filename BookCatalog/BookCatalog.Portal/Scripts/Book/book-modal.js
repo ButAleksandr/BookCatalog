@@ -4,34 +4,39 @@
     var self = this,
         initStatus = {
             Validation: false,
-            Bindings: false
+            Bindings: false,
+            EventHandlers: false
         },
-        bookEditBaseUrl = '';
+        getBookBaseUrl = '',
+        saveBookBaseUrl = '';
 
     const modalSelector = '#bookModal',
         bookFormId = '#bookForm',
         Urls = {
-            EditBook: function (bookId) {
-                return bookEditBaseUrl + "?bookId=" + bookId;
+            getBook: function (bookId) {
+                return getBookBaseUrl + "?bookId=" + bookId;
+            },
+            saveBook: function () {
+                return saveBookBaseUrl;
             }
         }
 
-    self.VM = function () {
-        var inner = this;
+    self.JsObject = function () {
+        var vm = self.VM;
 
-        VMObject = {
-            Id: inner.Id(),
-            Name: inner.Name(),
-            PageCount: inner.PageCount(),
-            ReleaseDate: inner.ReleaseDate(),
-            Rate: inner.Rate(),
-            Authors: inner.Authors()
+        JsObject = {
+            Id: vm.Id(),
+            Name: vm.Name(),
+            PageCount: vm.PageCount(),
+            ReleaseDate: vm.ReleaseDate(),
+            Rate: vm.Rate(),
+            Authors: vm.Authors()
         };
 
-        return VMObject;
+        return JsObject;
     }
 
-    function InitVM (initObject, bookModalSettings) {
+    function InitVM(initObject, bookModalSettings) {
         var inner = this;
 
         if (!initObject) {
@@ -39,7 +44,7 @@
                 Id: 0,
                 Name: '',
                 PageCount: '',
-                ReleaseDate: '',
+                ReleaseDate: moment(new Date()).format("MM/DD/YYYY"),
                 Rate: 0,
                 Authors: []
             };
@@ -55,24 +60,42 @@
         if (bookModalSettings
             && bookModalSettings.hasOwnProperty('showAfterInit')
             && bookModalSettings.showAfterInit) {
-            self.show();            
+            self.show();
         };
+    }
 
-        
+    self.refreshVM = function (vm, initObject) {
+        vm.Id(initObject.Id);
+        vm.Name(initObject.Name);
+        vm.PageCount(initObject.PageCount);
+        vm.ReleaseDate(initObject.ReleaseDate);
+        vm.Rate(initObject.Rate);
+        vm.Authors(initObject.Authors);
     }
 
     self.Initialize = function (bookId, bookModalSettings) {
         self.initVariables(bookModalSettings);
 
-        if (!bookId) {
-            var vm = new InitVM(null, bookModalSettings);
-            self.initBindings(vm);
-        } else {
-            self.loadBook(bookId, bookModalSettings);
-        }
+        if (!initStatus.Bindings) {
+            self.VM = new InitVM(null, bookModalSettings);
+            self.initBindings(self.VM);
+        }        
 
         if (!initStatus.Validation) {
             self.applyValidation(bookFormId);
+        }
+
+        if (!initStatus.EventHandlers) {
+            self.initEventHandlers();
+        }
+
+        if (bookId > 0) {
+            self.loadBook(bookId, bookModalSettings);
+        } 
+
+        if (bookId == 0) {
+            self.clean();
+            self.show();
         }
     }
 
@@ -123,26 +146,58 @@
         $(modalSelector).modal("show");
     }
 
+    self.clean = function () {
+        self.VM.Id(0);
+        self.VM.Name('');
+        self.VM.PageCount(0);
+        self.VM.ReleaseDate(moment(new Date()).format("MM/DD/YYYY"));
+        self.VM.Rate(0);
+        self.VM.Authors([]);
+    }
+
     self.loadBook = function (bookId, bookModalSettings) {
-        $.get(Urls.EditBook(bookId))
+        $.get(Urls.getBook(bookId))
             .done(function (result) {
                 if (result.Massage = "OK") {
-                    var vm = new InitVM(result.Value, bookModalSettings);
-                    self.initBindings(vm);
+                    result.Value.ReleaseDate = moment(result.Value.ReleaseDate).format("MM/DD/YYYY");
+                    self.refreshVM(self.VM, result.Value);
+                    self.show();                   
                 }
+            });
+    }
+
+    self.saveBook = function () {
+        $.post(Urls.saveBook(), self.JsObject())
+            .done(function (data) {
+                if (data.IsSuccess) {
+                    $(modalSelector).modal("hide");
+                    BookTable.Refresh();
+                } else {
+                    alert("Error of savign operation./n" + data.Message);
+                }     
             });
     }
 
     self.initVariables = function (bookModalSettings) {
         if (bookModalSettings && bookModalSettings.hasOwnProperty('getBookUrl')) {
-            bookEditBaseUrl = bookModalSettings.getBookUrl;
+            getBookBaseUrl = bookModalSettings.getBookUrl;
+            saveBookBaseUrl = bookModalSettings.saveBookUrl;
         }
     }
 
     self.initBindings = function (vm) {
-        ko.cleanNode($(modalSelector)[0]);
         ko.applyBindings(vm, $(bookFormId)[0]);
 
         initStatus.Bindings = true;
+    }
+
+    self.hide = function () {
+        $(modalSelector).modal("hide");
+    }
+
+    self.initEventHandlers = function () {
+        $(".close_bookModal").on("click", self.hide);
+        $("#save_bookModal").on("click", self.saveBook);
+        initStatus.EventHandlers = true;
     }
 }).apply(BookModal);

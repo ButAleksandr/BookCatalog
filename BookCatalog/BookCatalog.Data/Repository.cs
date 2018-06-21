@@ -59,6 +59,60 @@ namespace BookCatalog.Data
             }
         }
 
+        public bool BookIsExist(BookEM bookEM)
+        {
+            const string query = @"SELECT Count(1) FROM [dbo].[Books] WHERE [Id] = @Id";
+            bool bookIsExist;
+
+            using (var db = new SqlConnection(this.connString))
+            {
+                bookIsExist = db.Query<int>(query, new { bookEM.Id } ).First() > 0;
+            }
+
+            return bookIsExist;
+        }
+        public BookEM Save(BookEM bookEM)
+        {
+            const string query = @"
+                                INSERT INTO [dbo].[Books]
+                                            ([Name]
+                                            ,[PageCount]
+                                            ,[ReleaseDate]
+                                            ,[Rate])
+                                        VALUES
+                                            (@Name
+                                            ,@PageCount
+                                            ,@ReleaseDate
+                                            ,@Rate)
+
+                                Select SCOPE_IDENTITY();";
+
+            using (var db = new SqlConnection(this.connString))
+            {
+                int newBookId = db.Query<int>(query, bookEM).FirstOrDefault();
+
+                return GetBook(newBookId);
+            }
+        }
+
+        public BookEM Update(BookEM bookEM)
+        {
+            const string query = @"
+                                UPDATE [dbo].[Books]
+                                   SET [Name] = @Name
+                                      ,[PageCount] = @PageCount
+                                      ,[ReleaseDate] = @ReleaseDate
+                                      ,[Rate] = @Rate
+                                 WHERE [Id] = @Id;";
+
+            using (var db = new SqlConnection(this.connString))
+            {
+                db.Query<int>(query, bookEM).FirstOrDefault();
+
+                return GetBook(bookEM.Id);
+            }
+        }
+
         public void DeleteBook(int bookId)
         {
             var result = new List<BookEM>();

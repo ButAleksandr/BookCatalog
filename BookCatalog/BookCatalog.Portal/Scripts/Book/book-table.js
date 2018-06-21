@@ -17,15 +17,18 @@
         ko.cleanNode($(bookTableSelector)[0]);
         ko.applyBindings(self, $(bookTableSelector)[0]);
     }
+    self.Refresh = function () {
+        self.table.ajax.reload();
+    }
 
     self.initBooksTable = function (postInitAction) {
         $(bookTableSelector).dataTable().fnDestroy();
-        $(bookTableSelector).DataTable({
+        self.table = $(bookTableSelector).DataTable({
             ajax: {
                 url: booksListUrl,
                 dataSrc: "Value"
             },
-            type: "GET",
+            type: "GET",            
             columns: [
                 { data: "Name" },
                 { data: "PageCount" },
@@ -60,7 +63,7 @@
                 {
                     targets: [2],
                     render: function (data, type, row) {
-                        return eval(row.ReleaseDate.replace(new RegExp('/', 'g'), "")).toLocaleString('en-US');
+                        return moment(row.ReleaseDate).format("MM/DD/YYYY");
                     }
                 },
                 {
@@ -69,7 +72,7 @@
                         var deleteBtnElement = $("<button></button>");
                         deleteBtnElement
                             .attr({
-                                "data-bind": "event: { click: function(data, event) { BookTable.deleteBook('" + row.Id + "') } }"
+                                "onclick": "BookTable.deleteBook('" + row.Id + "')"
                             })
                             .text("Delete")
                             .addClass("btn btn-danger");
@@ -77,7 +80,7 @@
                         var editBtnElement = $("<button></button>");
                         editBtnElement
                             .attr({
-                                "data-bind": "event: { click: function(data, event) { BookModal.Initialize('" + row.Id + "', { showAfterInit: true }); } }"
+                                "onclick": "BookModal.Initialize('" + row.Id + "', { showAfterInit: true })"
                             })
                             .text("Edit")
                             .addClass("btn btn-primary mr-3");

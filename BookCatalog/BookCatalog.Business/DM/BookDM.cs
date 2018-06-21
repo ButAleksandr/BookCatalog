@@ -46,6 +46,22 @@ namespace BookCatalog.Business.DM
             return bookVMs;
         }
 
+        public BookVM Save(BookVM bookVM)
+        {
+            var bookEM = Mapper.Map<BookEM>(bookVM);
+
+            if (repository.BookIsExist(bookEM))
+            {
+                bookEM = repository.Update(bookEM);
+            }
+            else
+            {
+                bookEM = repository.Save(bookEM);
+            }
+
+            return Mapper.Map<BookVM>(bookEM);
+        }
+
         public void DeleteBook(int bookId)
         {
             repository.DeleteBook(bookId);

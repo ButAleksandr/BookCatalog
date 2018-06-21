@@ -9,6 +9,8 @@ namespace BookCatalog.Common.Business
 
         List<BookVM> GetBooksList();
 
+        BookVM Save(BookVM bookVM);
+
         void DeleteBook(int bookId);
     }
 }
