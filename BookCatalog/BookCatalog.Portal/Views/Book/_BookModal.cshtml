@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form id="bookForm">
-                    <input type="hidden" id="id" name="Id" data-bind="Id">
+                    <input type="hidden" id="id" name="Id" data-bind="value: Id">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group form-md-line-input">
@@ -20,7 +20,7 @@
                                        class="form-control"
                                        id="bookName"
                                        name="Name"
-                                       data-bind="Name"
+                                       data-bind="value: Name, valueUpdate: 'afterkeydown'"
                                        maxlength="60">
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                                        class="form-control"
                                        id="releaseDate"
                                        name="ReleaseDate"
-                                       data-bind="ReleaseDate">
+                                       data-bind="value: ReleaseDate">
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                                        class="form-control"
                                        id="pageCount"
                                        name="PageCount"
-                                       data-bind="PageCount">
+                                       data-bind="value: PageCount">
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -63,7 +63,7 @@
                                        class="form-control"
                                        id="rate"
                                        name="Rate"
-                                       data-bind="Rate">
+                                       data-bind="value: Rate">
                             </div>
                         </div>
                     </div>

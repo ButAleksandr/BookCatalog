@@ -31,7 +31,7 @@
         return VMObject;
     }
 
-    self.initVM = function (initObject, bookModalSettings) {
+    function InitVM (initObject, bookModalSettings) {
         var inner = this;
 
         if (!initObject) {
@@ -57,19 +57,18 @@
             && bookModalSettings.showAfterInit) {
             self.show();            
         };
+
+        
     }
 
     self.Initialize = function (bookId, bookModalSettings) {
         self.initVariables(bookModalSettings);
 
         if (!bookId) {
-            self.initVM(null, bookModalSettings);
+            var vm = new InitVM(null, bookModalSettings);
+            self.initBindings(vm);
         } else {
             self.loadBook(bookId, bookModalSettings);
-        }        
-
-        if (!initStatus.Bindings) {
-            self.initBindings();
         }
 
         if (!initStatus.Validation) {
@@ -128,7 +127,8 @@
         $.get(Urls.EditBook(bookId))
             .done(function (result) {
                 if (result.Massage = "OK") {
-                    self.initVM(result.Value, bookModalSettings);
+                    var vm = new InitVM(result.Value, bookModalSettings);
+                    self.initBindings(vm);
                 }
             });
     }
@@ -139,9 +139,9 @@
         }
     }
 
-    self.initBindings = function () {
-        //ko.cleanNode($(modalSelector)[0]);
-        ko.applyBindings(self, $(bookFormId)[0]);
+    self.initBindings = function (vm) {
+        ko.cleanNode($(modalSelector)[0]);
+        ko.applyBindings(vm, $(bookFormId)[0]);
 
         initStatus.Bindings = true;
     }

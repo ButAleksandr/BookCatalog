@@ -66,15 +66,23 @@
                 {
                     targets: [5],
                     render: function (data, type, row) {
-                        var btnElement = $("<button></button>");
-                        btnElement
+                        var deleteBtnElement = $("<button></button>");
+                        deleteBtnElement
                             .attr({
                                 "data-bind": "event: { click: function(data, event) { BookTable.deleteBook('" + row.Id + "') } }"
                             })
                             .text("Delete")
-                            .addClass("btn btn-primary");
+                            .addClass("btn btn-danger");
 
-                        return btnElement.prop('outerHTML');
+                        var editBtnElement = $("<button></button>");
+                        editBtnElement
+                            .attr({
+                                "data-bind": "event: { click: function(data, event) { BookModal.Initialize('" + row.Id + "', { showAfterInit: true }); } }"
+                            })
+                            .text("Edit")
+                            .addClass("btn btn-primary mr-3");
+
+                        return editBtnElement.prop('outerHTML') + deleteBtnElement.prop('outerHTML');
                     }
                 }
             ],

@@ -1,4 +1,5 @@
 ﻿using BookCatalog.Common.Business;
+using BookCatalog.Portal.ViewModel.Book;
 using System.Web.Mvc;
 
 namespace BookCatalog.Portal.Controllers
@@ -32,8 +33,13 @@ namespace BookCatalog.Portal.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int bookId)
+        public ActionResult Edit(BookVM bookVM)
         {
+            if (ModelState.IsValid)
+            {
+
+            }
+
             return null;
         }
 
