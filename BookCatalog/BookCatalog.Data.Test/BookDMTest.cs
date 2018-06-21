@@ -14,11 +14,11 @@ namespace BookCatalog.Data.Test
     [TestClass]
     public class BookDMTest
     {
-        private readonly Mock<IRepository> repositoryMock;
+        private readonly Mock<IBookRepository> repositoryMock;
 
         public BookDMTest()
         {
-            repositoryMock = new Mock<IRepository>();
+            repositoryMock = new Mock<IBookRepository>();
         }
 
         [TestMethod]

@@ -16,10 +16,20 @@ namespace BookCatalog.Portal.Controllers
         public ActionResult GetBook(int bookId)
         {
             var bookDM = Factory.GetService<IBookDM>();
+            var authorDM = Factory.GetService<IAuthorDM>();
 
-            var result = bookDM.GetBook(bookId);
+            if(bookId >= 0)
+            {
+                var result = bookId == 0 
+                    ? new BookVM() 
+                    : bookDM.GetBook(bookId);
 
-            return Success(result);
+                result.AllAuthors = authorDM.GetAll();
+
+                return Success(result);
+            }
+
+            return Fail(null, "Bad 'bookId' property value.");
         }
 
         [HttpGet]
@@ -38,8 +48,10 @@ namespace BookCatalog.Portal.Controllers
             if (ModelState.IsValid)
             {
                 var bookDM = Factory.GetService<IBookDM>();
+                var authorDM = Factory.GetService<IAuthorDM>();
 
                 var result = bookDM.Save(bookVM);
+                authorDM.UpdateBookAuthors(result.Id, bookVM.AuthorIds);
 
                 return Success(result);
             }

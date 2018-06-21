@@ -6,6 +6,17 @@ namespace BookCatalog.Portal.ViewModel.Book
 {
     public class BookVM
     {
+        public BookVM()
+        {
+            Id = 0;
+            Name = string.Empty;
+            PageCount = 0;
+            Rate = 0;
+            Authors = new List<AuthorVM>();
+            AllAuthors = new List<AuthorVM>();
+            AuthorIds = new List<int>();
+        }
+
         [Required]
         public int Id { get; set; }
 
@@ -14,7 +25,7 @@ namespace BookCatalog.Portal.ViewModel.Book
 
         [Required]
         [Range(1, int.MaxValue)]
-        public string PageCount { get; set; }
+        public int PageCount { get; set; }
 
         [Required]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
@@ -25,5 +36,9 @@ namespace BookCatalog.Portal.ViewModel.Book
         public int Rate { get; set; }
 
         public IEnumerable<AuthorVM> Authors { get; set; }
+
+        public IEnumerable<int> AuthorIds { get; set; }
+
+        public IEnumerable<AuthorVM> AllAuthors { get; set; }
     }
 }

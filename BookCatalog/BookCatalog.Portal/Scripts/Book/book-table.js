@@ -63,7 +63,7 @@
                 {
                     targets: [2],
                     render: function (data, type, row) {
-                        return moment(row.ReleaseDate).format("MM/DD/YYYY");
+                        return moment(row.ReleaseDate).format("DD/MM/YYYY");
                     }
                 },
                 {

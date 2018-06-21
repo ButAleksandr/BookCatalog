@@ -13,17 +13,17 @@ namespace BookCatalog.Business.DM
 {
     public class BookDM : IBookDM
     {
-        private readonly IRepository repository;
+        private readonly IBookRepository repository;
         
         static BookDM()
         {
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<BookEM, BookVM>();
-                cfg.CreateMap<AuthorVM, AuthorVM>();
+                cfg.CreateMap<AuthorEM, AuthorVM>();
             });
         }
 
-        public BookDM(IRepository repository)
+        public BookDM(IBookRepository repository)
         {
             this.repository = repository;         
         }
@@ -57,7 +57,7 @@ namespace BookCatalog.Business.DM
             else
             {
                 bookEM = repository.Save(bookEM);
-            }
+            }           
 
             return Mapper.Map<BookVM>(bookEM);
         }

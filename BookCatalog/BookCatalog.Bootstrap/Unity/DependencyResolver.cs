@@ -17,13 +17,16 @@ namespace BookCatalog.Bootstrap.Unity
         {
             var connString = ConfigurationManager.ConnectionStrings["BookCatalog"].ConnectionString;
 
-            container.RegisterType<IRepository, Data.Repository>(new InjectionConstructor(connString));
+            container.RegisterType<IBookRepository, Data.BookRepository>(new InjectionConstructor(connString));
+            container.RegisterType<IAuthorRepository, Data.AuthorRepository>(new InjectionConstructor(connString));
         }
 
         private static void InitBusinessLayer(IUnityContainer container)
         {
             container.RegisterType<IBookDM, Business.DM.BookDM>(
-                new InjectionConstructor(container.Resolve<IRepository>()));
+                new InjectionConstructor(container.Resolve<IBookRepository>()));
+            container.RegisterType<IAuthorDM, Business.DM.AuthorDM>(
+                new InjectionConstructor(container.Resolve<IAuthorRepository>()));
         }
     }
 }

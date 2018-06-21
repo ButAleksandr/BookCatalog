@@ -19,10 +19,16 @@
             saveBook: function () {
                 return saveBookBaseUrl;
             }
-        }
+        },
+        defaultDateFormat = "DD/MM/YYYY";
 
     self.JsObject = function () {
         var vm = self.VM;
+        var authorIds = [];
+
+        $('.selectpicker option:selected').each(function () {
+            authorIds.push($(this).val());
+        })
 
         JsObject = {
             Id: vm.Id(),
@@ -30,7 +36,8 @@
             PageCount: vm.PageCount(),
             ReleaseDate: vm.ReleaseDate(),
             Rate: vm.Rate(),
-            Authors: vm.Authors()
+            Authors: vm.Authors(),
+            AuthorIds: authorIds
         };
 
         return JsObject;
@@ -44,11 +51,13 @@
                 Id: 0,
                 Name: '',
                 PageCount: '',
-                ReleaseDate: moment(new Date()).format("MM/DD/YYYY"),
+                ReleaseDate: moment(new Date()).format(defaultDateFormat),
                 Rate: 0,
-                Authors: []
+                Authors: [],
+                AllAuthors: [],
+                AuthorIds: []
             };
-        }
+        }       
 
         inner.Id = ko.observable(initObject.Id);
         inner.Name = ko.observable(initObject.Name);
@@ -56,6 +65,11 @@
         inner.ReleaseDate = ko.observable(initObject.ReleaseDate);
         inner.Rate = ko.observable(initObject.Rate);
         inner.Authors = ko.observable(initObject.Authors);
+        inner.AuthorIds = ko.observable(self.getAuthorIds(initObject.Authors));
+        inner.AllAuthors = ko.observable(initObject.AllAuthors);
+
+        $('.selectpicker').selectpicker('val', inner.AuthorIds());
+        $('.selectpicker').selectpicker('refresh');
 
         if (bookModalSettings
             && bookModalSettings.hasOwnProperty('showAfterInit')
@@ -71,6 +85,11 @@
         vm.ReleaseDate(initObject.ReleaseDate);
         vm.Rate(initObject.Rate);
         vm.Authors(initObject.Authors);
+        vm.AuthorIds(self.getAuthorIds(initObject.Authors));
+        vm.AllAuthors(initObject.AllAuthors);
+
+        $('.selectpicker').selectpicker('val', vm.AuthorIds());
+        $('.selectpicker').selectpicker('refresh');
     }
 
     self.Initialize = function (bookId, bookModalSettings) {
@@ -89,13 +108,8 @@
             self.initEventHandlers();
         }
 
-        if (bookId > 0) {
+        if (bookId => 0) {
             self.loadBook(bookId, bookModalSettings);
-        } 
-
-        if (bookId == 0) {
-            self.clean();
-            self.show();
         }
     }
 
@@ -150,17 +164,22 @@
         self.VM.Id(0);
         self.VM.Name('');
         self.VM.PageCount(0);
-        self.VM.ReleaseDate(moment(new Date()).format("MM/DD/YYYY"));
+        self.VM.ReleaseDate(moment(new Date()).format(defaultDateFormat));
         self.VM.Rate(0);
         self.VM.Authors([]);
+        self.VM.AuthorIds([]);
+        self.VM.AllAuthors([]);
+
+        $('.selectpicker').selectpicker('val', []); 
+        $('.selectpicker').selectpicker('refresh');
     }
 
     self.loadBook = function (bookId, bookModalSettings) {
         $.get(Urls.getBook(bookId))
             .done(function (result) {
                 if (result.Massage = "OK") {
-                    result.Value.ReleaseDate = moment(result.Value.ReleaseDate).format("MM/DD/YYYY");
-                    self.refreshVM(self.VM, result.Value);
+                    result.Value.ReleaseDate = moment(result.Value.ReleaseDate).format(defaultDateFormat);
+                    self.refreshVM(self.VM, result.Value);                    
                     self.show();                   
                 }
             });
@@ -199,5 +218,15 @@
         $(".close_bookModal").on("click", self.hide);
         $("#save_bookModal").on("click", self.saveBook);
         initStatus.EventHandlers = true;
+    }
+
+    self.getAuthorIds = function (authors) {
+        var authorIds = [];
+
+        $.each(authors, function (index, item) {
+            authorIds.push(item.Id);
+        });
+
+        return authorIds;
     }
 }).apply(BookModal);

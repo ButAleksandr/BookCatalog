@@ -67,6 +67,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <select class="selectpicker" data-live-search="true" 
+                                    multiple="true"
+                                    data-max-options="10" 
+                                    size="10" 
+                                    data-bind="options: AllAuthors, 
+                                                selectedOptions: AuthorIds,
+                                                optionsText: function(item) {
+                                                    return item.FirstName + ' ' +  item.LastName;
+                                                },
+                                                optionsValue: function(item) {
+                                                    return item.Id.toString();
+                                                }" >
+                            </select>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
