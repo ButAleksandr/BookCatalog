@@ -24,12 +24,9 @@ namespace BookCatalog.Portal
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/bootstrap-select.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/bootstrap-select.min.css"));
+                      "~/Scripts/bootstrap-select.js",
+                      "~/Scripts/bootstrap-datepicker.js",
+                      "~/Scripts/Dictionaries.js"));          
 
             #endregion
 
@@ -37,6 +34,21 @@ namespace BookCatalog.Portal
 
             bundles.Add(new ScriptBundle("~/Scripts/Knockout").Include(
                       "~/Scripts/knockout-{version}.js"));
+
+            #endregion
+
+            #region CSS Bundles 
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                    "~/Content/bootstrap.css",
+                    "~/Content/site.css",
+                    "~/Content/bootstrap-select.min.css",
+                    "~/Content/bootstrap-datepicker.css"));
+
+            bundles.Add(new ScriptBundle("~/Content/DataTables").Include(
+                    "~/Content/buttons.dataTables.min.css",
+                    "~/Content/datatables.min.css"
+            ));
 
             #endregion
         }

@@ -1,6 +1,12 @@
 ###################
 # compiled source #
 ###################
+*.ide
+*.ide-wal
+*.dbmdl
+*.jfm
+.vs/
+applicationhost.config
 *.com
 *.class
 *.dll
@@ -73,3 +79,4 @@ _[Ss]cripts
 *.nupkg
 *.ncrunchsolution
 *.dot[Cc]over
+/BookCatalog/BookCatalog.DataBase/BookCatalog.DataBase.jfm

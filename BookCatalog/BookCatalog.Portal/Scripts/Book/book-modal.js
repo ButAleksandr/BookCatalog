@@ -5,7 +5,8 @@
         initStatus = {
             Validation: false,
             Bindings: false,
-            EventHandlers: false
+            EventHandlers: false,
+            DatePicker: false
         },
         getBookBaseUrl = '',
         saveBookBaseUrl = '';
@@ -19,8 +20,7 @@
             saveBook: function () {
                 return saveBookBaseUrl;
             }
-        },
-        defaultDateFormat = "DD/MM/YYYY";
+        };
 
     self.JsObject = function () {
         var vm = self.VM;
@@ -51,7 +51,7 @@
                 Id: 0,
                 Name: '',
                 PageCount: '',
-                ReleaseDate: moment(new Date()).format(defaultDateFormat),
+                ReleaseDate: moment(new Date()).format(Format.defaultDate.moment),
                 Rate: 0,
                 Authors: [],
                 AllAuthors: [],
@@ -108,7 +108,11 @@
             self.initEventHandlers();
         }
 
-        if (bookId => 0) {
+        if (!initStatus.DatePicker) {
+            self.initDatePicker();
+        }
+
+        if (bookId != null && bookId >= 0) {
             self.loadBook(bookId, bookModalSettings);
         }
     }
@@ -164,7 +168,7 @@
         self.VM.Id(0);
         self.VM.Name('');
         self.VM.PageCount(0);
-        self.VM.ReleaseDate(moment(new Date()).format(defaultDateFormat));
+        self.VM.ReleaseDate(moment(new Date()).format(Format.defaultDate.moment));
         self.VM.Rate(0);
         self.VM.Authors([]);
         self.VM.AuthorIds([]);
@@ -178,7 +182,7 @@
         $.get(Urls.getBook(bookId))
             .done(function (result) {
                 if (result.Massage = "OK") {
-                    result.Value.ReleaseDate = moment(result.Value.ReleaseDate).format(defaultDateFormat);
+                    result.Value.ReleaseDate = moment(result.Value.ReleaseDate).format(Format.defaultDate.moment);
                     self.refreshVM(self.VM, result.Value);                    
                     self.show();                   
                 }
@@ -208,6 +212,12 @@
         ko.applyBindings(vm, $(bookFormId)[0]);
 
         initStatus.Bindings = true;
+    }
+
+    self.initDatePicker = function () {        
+        $("#releaseDate").datepicker({
+            format: Format.defaultDate.datePicker
+        });
     }
 
     self.hide = function () {

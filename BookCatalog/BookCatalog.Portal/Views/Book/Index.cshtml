@@ -5,8 +5,7 @@
 
 @section style
 {
-    @Styles.Render("https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css")
-    @Styles.Render("https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css")
+    @Styles.Render("~/Content/DataTables")
 }
 
 <h2>Books</h2>
@@ -21,7 +20,7 @@
 @section scripts
 {
     @Scripts.Render("~/Scripts/Knockout")
-    @Scripts.Render("https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js")
+    @Scripts.Render("~/Scripts/datatables.min.js")
     @Scripts.Render("~/Scripts/Book/book-table.js")
     @Scripts.Render("~/Scripts/Book/book-modal.js")
 

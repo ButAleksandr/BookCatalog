@@ -28,7 +28,7 @@ namespace BookCatalog.Portal.ViewModel.Book
         public int PageCount { get; set; }
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public System.DateTime ReleaseDate { get; set; }
 
         [Required]

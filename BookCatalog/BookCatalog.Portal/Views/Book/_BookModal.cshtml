@@ -68,20 +68,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                            <select class="selectpicker" data-live-search="true" 
-                                    multiple="true"
-                                    data-max-options="10" 
-                                    size="10" 
-                                    data-bind="options: AllAuthors, 
+                        <div class="col-sm-12">                            
+                            <div class="form-group">
+                                <label for="authorSelect">
+                                    Authors
+                                </label>
+                                <select class="form-control selectpicker" data-live-search="true"
+                                        id="authorSelect"
+                                        multiple="true"
+                                        data-max-options="10"
+                                        size="10"
+                                        data-bind="options: AllAuthors,
                                                 selectedOptions: AuthorIds,
                                                 optionsText: function(item) {
                                                     return item.FirstName + ' ' +  item.LastName;
                                                 },
                                                 optionsValue: function(item) {
                                                     return item.Id.toString();
-                                                }" >
-                            </select>
+                                                }"></select>
+                            </div>
                         </div>
                     </div>
                 </form>
