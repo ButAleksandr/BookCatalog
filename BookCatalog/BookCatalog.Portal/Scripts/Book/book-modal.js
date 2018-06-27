@@ -22,6 +22,10 @@
             }
         };
 
+    self.onCreate = function () {
+        self.Initialize(0, { showAfterInit: true });
+    }
+
     self.JsObject = function () {
         var vm = self.VM;
         var authorIds = [];
@@ -210,6 +214,7 @@
 
     self.initBindings = function (vm) {
         ko.applyBindings(vm, $(bookFormId)[0]);
+        ko.applyBindings(vm, $("#createBlock")[0]);        
 
         initStatus.Bindings = true;
     }

@@ -1,7 +1,26 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Authors";
 }
 
-<h2>Index</h2>
+@section style
+{
+    @Styles.Render("~/Content/DataTables")
+}
 
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_AuthorTable")
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/Knockout")
+    @Scripts.Render("~/Scripts/datatables.min.js")
+    @Scripts.Render("~/Scripts/Author/author-table.js")
+
+    <script>
+        $(document).ready(function () {
+            AuthorTable.Initialize();
+        });
+    </script>
+}

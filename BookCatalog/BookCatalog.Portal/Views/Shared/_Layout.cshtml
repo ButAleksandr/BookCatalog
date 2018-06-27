@@ -8,15 +8,22 @@
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("style")
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                @Html.ActionLink("Book Catalog", "Index", "Book", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary navbar-fixed-top">
+        @Html.ActionLink("Book Catalog", "Index", "Book", new { area = "" }, new { @class = "navbar-brand" })
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    @Html.ActionLink("Books", "Index", "Book", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Authors", "Index", "Author", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+            </ul>
         </div>
-    </div>
-    <div class="container body-content">
+    </nav>
+
+    <div class="container body-content mt-5">
         @RenderBody()
         <hr />
         <footer>

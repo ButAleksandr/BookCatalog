@@ -73,5 +73,6 @@
     <Build Include="dbo\Functions\GetAuthors.sql" />
     <Build Include="dbo\Views\AuthorsView.sql" />
     <Build Include="dbo\Storeed Procedures\Delete_Book.sql" />
+    <Build Include="dbo\Storeed Procedures\Delete_Author.sql" />
   </ItemGroup>
 </Project>

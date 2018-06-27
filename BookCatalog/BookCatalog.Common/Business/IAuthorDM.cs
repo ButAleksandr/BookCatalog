@@ -8,5 +8,7 @@ namespace BookCatalog.Common.Business
         IEnumerable<AuthorVM> GetAll();
 
         void UpdateBookAuthors(int bookId, IEnumerable<int> authorIds);
+
+        void DeleteAuthor(int bookId);
     }
 }

@@ -51,5 +51,13 @@ namespace BookCatalog.Data
                 }
             }
         }
+
+        public void DeleteAuthor(int authorId)
+        {
+            using (var db = new SqlConnection(this.connString))
+            {
+                db.Execute("EXEC [dbo].[Delete_Author] @authorId", new { authorId });
+            }
+        }
     }
 }

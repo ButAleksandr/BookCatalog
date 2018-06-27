@@ -104,8 +104,4 @@
             }
         });
     };
-
-    self.editBookUrl = function (bookId) {
-        return window.rootUrl + "Book/DeleteBook/" + bookId;
-    };
 }).apply(BookTable);

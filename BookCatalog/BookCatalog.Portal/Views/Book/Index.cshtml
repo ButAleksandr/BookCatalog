@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Books";
 }
 
 @section style
@@ -8,12 +8,14 @@
     @Styles.Render("~/Content/DataTables")
 }
 
-<h2>Books</h2>
-<div class="row mb-3" style="text-align: right">
+<h2>@ViewBag.Title</h2>
+
+<div class="row mb-3" style="text-align: right" id="createBlock">
     <div class="col-xs-12">
-        <button class="btn btn-primary" onclick="BookModal.Initialize(0, { showAfterInit: true });">Create book</button>
+        <button class="btn btn-primary" data-bind="event : { click: BookModal.onCreate } ">Create book</button>
     </div>
 </div>
+
 @Html.Partial("_BookTable")
 @Html.Partial("_BookModal")
 

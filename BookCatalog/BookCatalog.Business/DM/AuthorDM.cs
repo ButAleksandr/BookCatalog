@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
 using BookCatalog.Common.Business;
 using BookCatalog.Common.Data;
-using BookCatalog.Data.Entity.Author;
 using BookCatalog.Portal.ViewModel.Author;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookCatalog.Business.DM
 {
-    public class AuthorDM: IAuthorDM
+    public class AuthorDM : IAuthorDM
     {
         private readonly IAuthorRepository repository;
 
@@ -25,6 +24,11 @@ namespace BookCatalog.Business.DM
         public void UpdateBookAuthors(int bookId, IEnumerable<int> authorIds)
         {
             repository.UpdateBookAuthors(bookId, authorIds);
+        }
+
+        public void DeleteAuthor(int bookId)
+        {
+            repository.DeleteAuthor(bookId);
         }
     }
 }
