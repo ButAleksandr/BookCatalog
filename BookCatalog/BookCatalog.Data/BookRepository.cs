@@ -71,6 +71,7 @@ namespace BookCatalog.Data
 
             return bookIsExist;
         }
+
         public BookEM Save(BookEM bookEM)
         {
             const string query = @"

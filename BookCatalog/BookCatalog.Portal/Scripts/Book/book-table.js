@@ -2,6 +2,7 @@
 
 (function () {
     var self = this;
+    
     const booksListUrl = window.rootUrl + "Book/GetBooksList";
     const bookTableSelector = '#bookTable';
     const Urls = {
@@ -9,6 +10,7 @@
             return window.rootUrl + "Book/Delete?bookId=" + bookId;
         }
     }
+
     self.Initialize = function () {
         self.initBooksTable(self.initBindings);
     }

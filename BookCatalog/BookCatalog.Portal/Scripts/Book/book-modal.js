@@ -22,6 +22,8 @@
             }
         };
 
+    self.VM = {};
+
     self.onCreate = function () {
         self.Initialize(0, { showAfterInit: true });
     }
@@ -166,20 +168,6 @@
 
     self.show = function () {
         $(modalSelector).modal("show");
-    }
-
-    self.clean = function () {
-        self.VM.Id(0);
-        self.VM.Name('');
-        self.VM.PageCount(0);
-        self.VM.ReleaseDate(moment(new Date()).format(Format.defaultDate.moment));
-        self.VM.Rate(0);
-        self.VM.Authors([]);
-        self.VM.AuthorIds([]);
-        self.VM.AllAuthors([]);
-
-        $('.selectpicker').selectpicker('val', []); 
-        $('.selectpicker').selectpicker('refresh');
     }
 
     self.loadBook = function (bookId, bookModalSettings) {

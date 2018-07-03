@@ -31,7 +31,7 @@ GO
 -- Trigger for decreasing BooksCount field value after was deleted a book ~ author relation
 
 CREATE TRIGGER [dbo].[Trigger_AuthorsBooks_Delete] ON [dbo].[AuthorsBooks]
-FOR DELETE
+INSTEAD OF DELETE
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -41,17 +41,22 @@ BEGIN
                            ( 
                             [Ids] INT NOT NULL
                            );
+    Declare @bookId bigint = (Select TOP(1) [BookId] From [deleted]);
 
-    INSERT INTO @authorId
-    SELECT [AuthorID]
-    FROM [AuthorsBooks]
-    WHERE [BookId] IN (SELECT [BookId]
-                       FROM [deleted]);
-         
-	-- Update book count for the author
-    UPDATE [Authors]
-    SET [BookCount] = [BookCount] - 1
-    WHERE [Id] IN(SELECT [Ids] FROM @authorId);
+    IF @bookId > 0 
+    BEGIN
+        INSERT INTO TestTable 
+        SELECT @bookId, 2
+
+	    -- Update book count for the author
+        UPDATE [Authors]
+        SET [BookCount] = [BookCount] - 1    
+        WHERE (SELECT COUNT(*)
+        FROM [AuthorsBooks]
+        WHERE [BookId] = @bookId and [AuthorId] = [Authors].[Id]) > 0;
+
+        DELETE [AuthorsBooks] WHERE [BookId] = @bookId
+    END
 END;
 GO
 
