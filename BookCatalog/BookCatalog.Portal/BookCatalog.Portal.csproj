@@ -175,6 +175,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\Author\author-table.js" />
+    <Content Include="Scripts\Author\author-modal.js" />
     <Content Include="Scripts\Book\book-modal.js" />
     <Content Include="Scripts\Book\book-table.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -423,6 +424,7 @@
     <Content Include="Views\Book\_BookModal.cshtml" />
     <Content Include="Views\Author\AuthorList.cshtml" />
     <Content Include="Views\Author\_AuthorTable.cshtml" />
+    <Content Include="Views\Author\_AuthorModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

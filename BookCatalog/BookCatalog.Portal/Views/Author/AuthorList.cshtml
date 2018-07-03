@@ -10,17 +10,33 @@
 
 <h2>@ViewBag.Title</h2>
 
+<div class="row mb-3" style="text-align: right" id="createBlock">
+    <div class="col-xs-12">
+        <button class="btn btn-primary" data-bind="event : { click: AuthorModal.onCreate } ">Create Author</button>
+    </div>
+</div>
+
 @Html.Partial("_AuthorTable")
+
+@Html.Partial("_AuthorModal")
 
 @section scripts
 {
     @Scripts.Render("~/Scripts/Knockout")
     @Scripts.Render("~/Scripts/datatables.min.js")
     @Scripts.Render("~/Scripts/Author/author-table.js")
+    @Scripts.Render("~/Scripts/Author/author-modal.js")
 
     <script>
         $(document).ready(function () {
+            const bookModalSettings = {
+                getAuthorUrl: '@Url.Action("Get", "Author")',
+                saveAuthorUrl: '@Url.Action("Save", "Author")',
+                showAfterInit: false
+            }
+
             AuthorTable.Initialize();
+            AuthorModal.Initialize(null, bookModalSettings);
         });
     </script>
 }

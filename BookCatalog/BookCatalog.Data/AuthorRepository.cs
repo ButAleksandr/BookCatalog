@@ -28,6 +28,65 @@ namespace BookCatalog.Data
             return result;
         }
 
+        public AuthorEM Get(int authorId)
+        {
+            using (var db = new SqlConnection(this.connString))
+            {
+                return db.Query<AuthorEM>("Select * From [dbo].[Authors] WHERE [Id] = @authorId", new { authorId }).FirstOrDefault();
+            }
+        }
+
+        public AuthorEM Save(AuthorEM authorEM)
+        {
+            const string query = @"
+                                INSERT INTO [dbo].[Authors]
+                                            ([FirstName]
+                                             ,[LastName]
+                                             ,[BookCount])
+                                        VALUES
+                                            (@FirstName
+                                            ,@LastName
+                                            ,@BookCount)
+
+                                Select SCOPE_IDENTITY();";
+
+            using (var db = new SqlConnection(this.connString))
+            {
+                int newAuthorId = db.Query<int>(query, authorEM).FirstOrDefault();
+
+                return Get(newAuthorId);
+            }
+        }
+
+        public AuthorEM Update(AuthorEM authorEM)
+        {
+            const string query = @"
+                                 UPDATE [dbo].[Authors]
+                                   SET [FirstName] = @FirstName
+                                      ,[LastName] = @LastName
+                                 WHERE [Id] = @Id;";
+
+            using (var db = new SqlConnection(this.connString))
+            {
+                db.Query<int>(query, authorEM).FirstOrDefault();
+
+                return Get(authorEM.Id);
+            }
+        }
+        
+        public bool AuthorIsExist(AuthorEM authorEM)
+        {
+            const string query = @"SELECT Count(1) FROM [dbo].[Authors] WHERE [Id] = @Id";
+            bool isExist;
+
+            using (var db = new SqlConnection(this.connString))
+            {
+                isExist = db.Query<int>(query, new { authorEM.Id }).First() > 0;
+            }
+
+            return isExist;
+        }
+
         public void UpdateBookAuthors(int bookId, IEnumerable<int> authorIds)
         {
             var result = new List<AuthorEM>();

@@ -45,7 +45,7 @@
                     }
                 },
                 {
-                    targets: [1],
+                    targets: [2],
                     "width": "16%",
                     render: function (data, type, row) {
                         var deleteBtnElement = $("<button></button>");
@@ -58,6 +58,9 @@
 
                         var editBtnElement = $("<button></button>");
                         editBtnElement
+                            .attr({
+                                "onclick": "AuthorModal.Initialize('" + row.Id + "', { showAfterInit: true })"
+                            })
                             .text("Edit")
                             .addClass("btn btn-primary mr-3");
 
