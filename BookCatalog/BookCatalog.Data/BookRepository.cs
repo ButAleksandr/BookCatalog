@@ -9,13 +9,10 @@ using BookCatalog.Common.Data;
 
 namespace BookCatalog.Data
 {
-    public class BookRepository : IBookRepository
+    public class BookRepository : OriginRepository, IBookRepository
     {
-        private readonly string connString;
-
-        public BookRepository(string connString)
+        public BookRepository(string connString) : base(connString)
         {
-            this.connString = connString;
         }
 
         public BookEM GetBook(int bookId)
@@ -33,13 +30,13 @@ namespace BookCatalog.Data
             return result;
         }
 
-        public List<BookEM> GetBooks()
+        public List<BookEM> GetBooks(string query)
         {
             var result = new List<BookEM>();
 
             using (var db = new SqlConnection(this.connString))
             {
-                result = db.Query<BookEM>("Select * From [dbo].[BooksView]").ToList();
+                result = db.Query<BookEM>(query).ToList();
             }
 
             return result;

@@ -1,10 +1,12 @@
 ﻿using BookCatalog.Common.Business;
 using BookCatalog.Portal.ViewModel.Book;
+using BookCatalog.ViewModel.DataTable;
+using System.Text;
 using System.Web.Mvc;
 
 namespace BookCatalog.Portal.Controllers
 {
-    public class BookController : BaseController
+    public partial class BookController : BaseController
     {
         [HttpGet]
         public ActionResult Index()
@@ -32,14 +34,12 @@ namespace BookCatalog.Portal.Controllers
             return Fail(null, "Bad 'bookId' property value.");
         }
 
-        [HttpGet]
-        public ActionResult GetBooksList()
+        [HttpPost]
+        public JsonResult GetBooksList(DataTableVM dataTableVM)
         {
             var bookDM = Factory.GetService<IBookDM>();
 
-            var result = bookDM.GetBooksList();
-
-            return Success(result);
+            return SerializeJson(bookDM.GetBooksList(dataTableVM));
         }
 
         [HttpPost]

@@ -16,7 +16,6 @@
     }
 
     self.initBindings = function () {
-        ko.cleanNode($(bookTableSelector)[0]);
         ko.applyBindings(self, $(bookTableSelector)[0]);
     }
     self.Refresh = function () {
@@ -26,18 +25,19 @@
     self.initBooksTable = function (postInitAction) {
         $(bookTableSelector).dataTable().fnDestroy();
         self.table = $(bookTableSelector).DataTable({
+            serverSide: true, 
             ajax: {
                 url: booksListUrl,
-                dataSrc: "Value"
-            },
-            type: "GET",            
+                type: "POST",
+                dataType: "JSON" 
+            },            
             columns: [
-                { data: "Name" },
-                { data: "PageCount" },
-                { data: "ReleaseDate" },
-                { data: "Rate" },
+                { name: "Name", data: "Name" },
+                { name: "PageCount", data: "PageCount" },
+                { name: "ReleaseDate", data: "ReleaseDate" },
+                { name: "Rate", data: "Rate" },
                 { data: "Authors" },
-                { data: "Id" }
+                { name: "Id", data: "Id" }
             ],
             columnDefs: [
                 {

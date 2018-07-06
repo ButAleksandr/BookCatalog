@@ -88,6 +88,7 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -144,6 +145,7 @@
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Extention\JsonDataContractResult.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -166,8 +168,39 @@
     <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\buttons.dataTables.min.css" />
-    <Content Include="Content\datatables.min.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\images\sort_asc.png" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\images\sort_both.png" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\images\sort_desc.png" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\dataTables.bootstrap.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\dataTables.bootstrap.min.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\dataTables.bootstrap4.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\dataTables.foundation.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\dataTables.foundation.min.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\dataTables.jqueryui.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\dataTables.jqueryui.min.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\dataTables.semanticui.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\dataTables.semanticui.min.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\jquery.dataTables.js" />
+    <Content Include="Content\DataTable\DataTables-1.10.18\js\jquery.dataTables.min.js" />
+    <Content Include="Content\DataTable\datatables.css" />
+    <Content Include="Content\DataTable\datatables.js" />
+    <Content Include="Content\DataTable\datatables.min.css" />
+    <Content Include="Content\DataTable\datatables.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -196,7 +229,6 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\Dictionaries.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -399,7 +431,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

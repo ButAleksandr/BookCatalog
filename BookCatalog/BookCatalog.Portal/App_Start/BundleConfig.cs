@@ -46,8 +46,7 @@ namespace BookCatalog.Portal
                     "~/Content/bootstrap-datepicker.css"));
 
             bundles.Add(new ScriptBundle("~/Content/DataTables").Include(
-                    "~/Content/buttons.dataTables.min.css",
-                    "~/Content/datatables.min.css"
+                    "~/Content/DataTable/datatables.min.css"
             ));
 
             #endregion

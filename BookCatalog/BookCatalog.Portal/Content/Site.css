@@ -29,3 +29,7 @@ textarea {
 .has-error > .badge {
     display: inline !important;
 }
+
+#bookTable {
+    width: 1000px;
+}

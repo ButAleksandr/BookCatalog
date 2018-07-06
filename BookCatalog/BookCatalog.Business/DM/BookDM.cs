@@ -8,6 +8,8 @@ using BookCatalog.Portal.ViewModel.Author;
 using BookCatalog.Data.Entity.Book;
 using BookCatalog.Common.Data;
 using BookCatalog.Common.Business;
+using BookCatalog.Business.DM.DataTables;
+using BookCatalog.ViewModel.DataTable;
 
 namespace BookCatalog.Business.DM
 {
@@ -32,18 +34,30 @@ namespace BookCatalog.Business.DM
         {
             var bookVM = Enumerable.Repeat(Mapper.Map<BookVM>(repository.GetBook(bookId)), 1).ToList();
             
-            GetBooksAuthors(bookVM);
+            GetBooksAuthors(bookVM);            
 
             return bookVM.FirstOrDefault();
         }
 
-        public List<BookVM> GetBooksList()
+        public DataTableResult<BookVM> GetBooksList(DataTableVM dataTableVM)
         {
-            var bookVMs = repository.GetBooks().Select(x => Mapper.Map<BookVM>(x)).ToList();
+            string selectQuery = DataTableDM.BuildSelectQuery("Books", dataTableVM),
+                countQuery = DataTableDM.BuildCountQuery("Books", dataTableVM);
 
+            var bookVMs = repository
+                .GetBooks(selectQuery).Select(x => Mapper.Map<BookVM>(x)).ToList();
+            
             GetBooksAuthors(bookVMs);
 
-            return bookVMs;
+            var table = new DataTableResult<BookVM>()
+            {
+                Draw = dataTableVM.Draw,
+                RecordsFiltered = bookVMs.Count,
+                RecordsTotal = repository.GetCount(countQuery),
+                Data = bookVMs
+            };
+
+            return table;
         }
 
         public BookVM Save(BookVM bookVM)

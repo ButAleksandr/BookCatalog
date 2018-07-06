@@ -9,7 +9,9 @@ namespace BookCatalog.Common.Data
     {
         BookEM GetBook(int bookId);
 
-        List<BookEM> GetBooks();
+        long GetCount(string query);
+
+        List<BookEM> GetBooks(string query);
 
         Task<KeyValuePair<int, IEnumerable<AuthorEM>>> GetBookAuthors(int bookId);
 

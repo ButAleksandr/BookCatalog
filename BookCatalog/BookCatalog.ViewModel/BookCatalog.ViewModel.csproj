@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,6 +44,11 @@
   <ItemGroup>
     <Compile Include="Author\AuthorVM.cs" />
     <Compile Include="Book\BookVM.cs" />
+    <Compile Include="DataTable\ColumnVM.cs" />
+    <Compile Include="DataTable\DataTableAjaxPostVM.cs" />
+    <Compile Include="DataTable\DataTableResultVM.cs" />
+    <Compile Include="DataTable\OrderVM.cs" />
+    <Compile Include="DataTable\SearchVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DM\AuthorDM.cs" />
     <Compile Include="DM\BookDM.cs" />
+    <Compile Include="DM\DataTables\DataTableDM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

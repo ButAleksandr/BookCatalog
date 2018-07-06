@@ -4,6 +4,7 @@ using BookCatalog.Portal.Context;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using static BookCatalog.Portal.Controllers.BookController;
 
 namespace BookCatalog.Portal.Controllers
 {
@@ -64,6 +65,17 @@ namespace BookCatalog.Portal.Controllers
                     Model = model,
                     Message = message ?? string.Empty
                 },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        protected JsonResult SerializeJson(object data)
+        {
+            return new JsonDataContractResult
+            {
+                Data = data,
+                ContentType = "application/json",
+                ContentEncoding = Encoding.UTF8,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

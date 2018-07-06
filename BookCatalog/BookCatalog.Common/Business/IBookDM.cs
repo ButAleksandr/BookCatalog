@@ -1,4 +1,5 @@
 ﻿using BookCatalog.Portal.ViewModel.Book;
+using BookCatalog.ViewModel.DataTable;
 using System.Collections.Generic;
 
 namespace BookCatalog.Common.Business
@@ -7,7 +8,7 @@ namespace BookCatalog.Common.Business
     {
         BookVM GetBook(int bookId);
 
-        List<BookVM> GetBooksList();
+        DataTableResult<BookVM> GetBooksList(DataTableVM dataTableVM);
 
         BookVM Save(BookVM bookVM);
 
