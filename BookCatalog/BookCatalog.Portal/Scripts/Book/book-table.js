@@ -2,33 +2,34 @@
 
 (function () {
     var self = this;
-    
-    const booksListUrl = window.rootUrl + "Book/GetBooksList"; // todo
-    const bookTableSelector = '#bookTable';
-    const Urls = {
-        DeleteBook: function (bookId) {
-            return window.rootUrl + "Book/Delete?bookId=" + bookId; // todo
-        }
-    }
 
     self.Initialize = function () {
-        self.initBooksTable(self.initBindings);
-    }
-
-    self.initBindings = function () { // todo
-        ko.applyBindings(self.vm, $(bookTableSelector)[0]);
+        initBooksTable();
     }
 
     self.Refresh = function () {
         self.table.ajax.reload();
     }
 
-    self.initBooksTable = function (postInitAction) {
-        $(bookTableSelector).dataTable().fnDestroy();
-        self.table = $(bookTableSelector).DataTable({
+    self.deleteBook = function (bookId) {
+        jQuery.ajax({
+            url: `${self.deleteBookUrl}?bookId=${bookId}`,
+            type: "GET",
+            success: function () {
+                console.log("Book deleted succesfully.");
+
+                self.Initialize();
+            }
+        });
+    };
+
+    function initBooksTable() {
+        $("#bookTable").dataTable().fnDestroy();
+
+        self.table = $("#bookTable").DataTable({
             serverSide: true, 
             ajax: {
-                url: booksListUrl,
+                url: self.booksListUrl,
                 type: "POST",
                 dataType: "JSON" 
             },            
@@ -47,19 +48,19 @@
                         var authorLinks = [];
                         var authorsFullNames = [];
 
-                        $.each(row.Authors, function (index, author) {
-                            var authorFullName = author.FirstName + ' ' + author.LastName;
+                        $.each(row.Authors, function(index, author) {
+                            var authorFullName = `${author.FirstName} ${author.LastName}`;
 
-                            var link = $("<a href=\"#\">" + authorFullName + "</a>");
+                            var link = $(`<a href=\"#\">${authorFullName}</a>`);
                             link.attr({
-                                "onclick": "AuthorModal.Initialize('" + author.Id + "', { showAfterInit: true })"
+                                "onclick": `AuthorModal.Initialize('${author.Id}', { showAfterInit: true })`
                             });
 
-                            authorLinks.push(link.prop('outerHTML'));
+                            authorLinks.push(link.prop("outerHTML"));
                             authorsFullNames.push(authorFullName);
-                        })
+                        });
 
-                        if (type === "sort" || type === 'type') {
+                        if (type === "sort" || type === "type") {
                             return authorsFullNames.join(", ");
                         } else {
                             return authorLinks.join(", ");
@@ -78,7 +79,7 @@
                         var deleteBtnElement = $("<button></button>");
                         deleteBtnElement
                             .attr({
-                                "onclick": "BookTable.deleteBook('" + row.Id + "')"
+                                "onclick": `BookTable.deleteBook('${row.Id}')`
                             })
                             .text("Delete")
                             .addClass("btn btn-danger");
@@ -86,28 +87,15 @@
                         var editBtnElement = $("<button></button>");
                         editBtnElement
                             .attr({
-                                "onclick": "BookModal.Initialize('" + row.Id + "', { showAfterInit: true })"
+                                "onclick": `BookModal.Initialize('${row.Id}', { showAfterInit: true })`
                             })
                             .text("Edit")
                             .addClass("btn btn-primary mr-3");
 
-                        return editBtnElement.prop('outerHTML') + deleteBtnElement.prop('outerHTML');
+                        return editBtnElement.prop("outerHTML") + deleteBtnElement.prop("outerHTML");
                     }
                 }
-            ],
-            initComplete: postInitAction
+            ]
         });
     }
-
-    self.deleteBook = function (bookId) {
-        jQuery.ajax({
-            url: Urls.DeleteBook(bookId),
-            type: "GET",
-            success: function () {
-                console.log("Book deleted.");                
-
-                self.Initialize();
-            }
-        });
-    };
 }).apply(BookTable);

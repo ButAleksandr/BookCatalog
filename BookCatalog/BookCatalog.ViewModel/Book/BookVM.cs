@@ -1,4 +1,5 @@
-﻿using BookCatalog.Portal.ViewModel.Author;
+﻿using System;
+using BookCatalog.Portal.ViewModel.Author;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,6 +13,7 @@ namespace BookCatalog.Portal.ViewModel.Book
             Name = string.Empty;
             PageCount = 0;
             Rate = 0;
+            ReleaseDate = DateTime.Now;
             Authors = new List<AuthorVM>();
             AllAuthors = new List<AuthorVM>();
             AuthorIds = new List<int>();

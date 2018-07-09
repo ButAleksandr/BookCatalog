@@ -32,23 +32,12 @@
     @Scripts.Render("~/Scripts/Book/book-modal.js")
     @Scripts.Render("~/Scripts/Author/author-modal.js")
 
+    
     <script>
-        $(document).ready(function () {
-            var authorModalSettings = {
-                getAuthorUrl: '@Url.Action("Get", "Author")',
-                saveAuthorUrl: '@Url.Action("Save", "Author")',
-                showAfterInit: false,
-                withCreate: false,
-                TargetTable: BookTable
-            };
-            
-            BookModal.getBookBaseUrl = '@Url.Action("GetBook", "Book")';
-            BookModal.saveBookBaseUrl = '@Url.Action("Save", "Book")';
-            BookModal.loadBookModalUrl = '@Url.Action("BookModal", "Book")';
-
-            BookTable.Initialize();
-            BookModal.Initialize(null, false);
-            AuthorModal.Initialize(null, authorModalSettings);
+        $(document).ready(function() {
+            @Html.Partial("Initializer/_BookTabeInitializer")
+            @Html.Partial("Initializer/_BookModalInitializer")
+            @Html.Partial("Initializer/_AuthorModalInitializer", new string[] { "false", "false", "BookTable"})
         });
     </script>
 }

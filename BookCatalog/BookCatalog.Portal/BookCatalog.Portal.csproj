@@ -461,6 +461,9 @@
     <Content Include="Views\Author\AuthorList.cshtml" />
     <Content Include="Views\Author\_AuthorTable.cshtml" />
     <Content Include="Views\Author\_AuthorModal.cshtml" />
+    <Content Include="Views\Shared\Initializer\_BookModalInitializer.cshtml" />
+    <Content Include="Views\Shared\Initializer\_BookTabeInitializer.cshtml" />
+    <Content Include="Views\Shared\Initializer\_AuthorModalInitializer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
