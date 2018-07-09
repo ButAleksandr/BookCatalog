@@ -3,11 +3,11 @@
 (function () {
     var self = this;
     
-    const booksListUrl = window.rootUrl + "Book/GetBooksList";
+    const booksListUrl = window.rootUrl + "Book/GetBooksList"; // todo
     const bookTableSelector = '#bookTable';
     const Urls = {
         DeleteBook: function (bookId) {
-            return window.rootUrl + "Book/Delete?bookId=" + bookId;
+            return window.rootUrl + "Book/Delete?bookId=" + bookId; // todo
         }
     }
 
@@ -15,9 +15,10 @@
         self.initBooksTable(self.initBindings);
     }
 
-    self.initBindings = function () {
+    self.initBindings = function () { // todo
         ko.applyBindings(self, $(bookTableSelector)[0]);
     }
+
     self.Refresh = function () {
         self.table.ajax.reload();
     }

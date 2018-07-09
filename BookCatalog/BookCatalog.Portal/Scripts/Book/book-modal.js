@@ -28,7 +28,7 @@
         self.Initialize(0, { showAfterInit: true });
     }
 
-    self.JsObject = function () {
+    self.JsObject = function () { // todo: remove
         var vm = self.VM;
         var authorIds = [];
 
