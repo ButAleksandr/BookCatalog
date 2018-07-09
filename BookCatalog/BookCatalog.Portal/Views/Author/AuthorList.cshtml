@@ -12,13 +12,13 @@
 
 <div class="row mb-3" style="text-align: right" id="createBlock">
     <div class="col-xs-12">
-        <button class="btn btn-primary" data-bind="event : { click: AuthorModal.onCreate } ">Create Author</button>
+        <button class="btn btn-primary" onclick="AuthorModal.Initialize(0)">Create Author</button>
     </div>
 </div>
 
-@Html.Partial("_AuthorTable")
+<div id="authorModalContainer"></div>
 
-@Html.Partial("_AuthorModal")
+@Html.Partial("_AuthorTable")
 
 @section scripts
 {
@@ -29,15 +29,9 @@
 
     <script>
         $(document).ready(function () {
-            const modalSettings = {
-                getAuthorUrl: '@Url.Action("Get", "Author")',
-                saveAuthorUrl: '@Url.Action("Save", "Author")',
-                showAfterInit: false,
-                TargetTable: AuthorTable
-            }
+            @Html.Partial("Initializer/_AuthorTableInitializer")
 
-            AuthorTable.Initialize();
-            AuthorModal.Initialize(null, modalSettings);
+            @Html.Partial("Initializer/_AuthorModalInitializer", "AuthorTable")
         });
     </script>
 }

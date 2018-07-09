@@ -18,11 +18,7 @@
 
 @Html.Partial("_BookTable")
 
-<div id="bookModalContainer">
-
-</div>
-
-@Html.Partial("~/Views/Author/_AuthorModal.cshtml")
+<div id="bookModalContainer"></div>
 
 @section scripts
 {
@@ -37,7 +33,7 @@
         $(document).ready(function() {
             @Html.Partial("Initializer/_BookTabeInitializer")
             @Html.Partial("Initializer/_BookModalInitializer")
-            @Html.Partial("Initializer/_AuthorModalInitializer", new string[] { "false", "false", "BookTable"})
+            @Html.Partial("Initializer/_AuthorModalInitializer", "BookTable")
         });
     </script>
 }

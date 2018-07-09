@@ -2,32 +2,22 @@
 
 (function () {
     var self = this;
-    const authorsListUrl = window.rootUrl + "Author/AuthorsList";
-    const authorTableSelector = '#authorTable';
-    const Urls = {
-        DeleteAuthor: function (authorId) {
-            return window.rootUrl + "Author/Delete?authorId=" + authorId;
-        }
-    }
+    const authorTableSelector = "#authorTable";
+    
     self.Initialize = function () {
-        self.initAuthorTable(self.initBindings);
-    }
-
-    self.initBindings = function () {
-        ko.cleanNode($(authorTableSelector)[0]);
-        ko.applyBindings(self, $(authorTableSelector)[0]);
+        initAuthorTable();
     }
 
     self.Refresh = function () {
         self.table.ajax.reload();
     }
 
-    self.initAuthorTable = function (postInitAction) {
+    function initAuthorTable() {
         $(authorTableSelector).dataTable().fnDestroy();
 
         self.table = $(authorTableSelector).DataTable({
             ajax: {
-                url: authorsListUrl,
+                url: self.authorsListUrl,
                 dataSrc: "Value"
             },
             type: "GET",
@@ -39,7 +29,7 @@
                 {
                     targets: [0],
                     render: function (data, type, row) {
-                        var authorFullName = row.FirstName + ' ' + row.LastName;
+                        var authorFullName = `${row.FirstName} ${row.LastName}`;
 
                         return authorFullName;
                     }
@@ -51,7 +41,7 @@
                         var deleteBtnElement = $("<button></button>");
                         deleteBtnElement
                             .attr({
-                                "onclick": "AuthorTable.deleteAuthor('" + row.Id + "')"
+                                "onclick": `AuthorTable.deleteAuthor('${row.Id}')`
                             })
                             .text("Delete")
                             .addClass("btn btn-danger");
@@ -59,22 +49,21 @@
                         var editBtnElement = $("<button></button>");
                         editBtnElement
                             .attr({
-                                "onclick": "AuthorModal.Initialize('" + row.Id + "', { showAfterInit: true })"
+                                "onclick": `AuthorModal.Initialize('${row.Id}', { showAfterInit: true })`
                             })
                             .text("Edit")
                             .addClass("btn btn-primary mr-3");
 
-                        return editBtnElement.prop('outerHTML') + deleteBtnElement.prop('outerHTML');
+                        return editBtnElement.prop("outerHTML") + deleteBtnElement.prop("outerHTML");
                     }
                 }
-            ],
-            initComplete: postInitAction
+            ]
         });
     }
 
     self.deleteAuthor = function (authorId) {
         jQuery.ajax({
-            url: Urls.DeleteAuthor(authorId),
+            url: `${self.deleteAuthorUrl}?authorId=${authorId}`,
             type: "GET",
             success: function () {
                 console.log("Author deleted.");

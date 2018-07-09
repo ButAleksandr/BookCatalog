@@ -45,9 +45,6 @@ BEGIN
 
     IF @bookId > 0 
     BEGIN
-        INSERT INTO TestTable 
-        SELECT @bookId, 2
-
 	    -- Update book count for the author
         UPDATE [Authors]
         SET [BookCount] = [BookCount] - 1    

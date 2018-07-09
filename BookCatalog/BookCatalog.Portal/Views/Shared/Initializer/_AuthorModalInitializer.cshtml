@@ -1,11 +1,8 @@
-﻿@model string[]
+﻿@model string
 
-var authorModalSettings = {
-    getAuthorUrl: '@Url.Action("Get", "Author")',
-    saveAuthorUrl: '@Url.Action("Save", "Author")',
-    showAfterInit: @Model[0],
-    withCreate: @Model[1],
-    TargetTable: @Model[2]
-};
+AuthorModal.targetTable = @Model;
+AuthorModal.getAuthorBaseUrl = '@Url.Action("Get", "Author")';
+AuthorModal.saveAuthorBaseUrl = '@Url.Action("Save", "Author")';
+AuthorModal.getAuthorModalUrl = '@Url.Action("AuthorModal", "Author")';
 
-AuthorModal.Initialize(null, authorModalSettings);
+AuthorModal.Initialize(null);

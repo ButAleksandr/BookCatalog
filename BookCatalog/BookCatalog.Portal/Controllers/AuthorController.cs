@@ -38,6 +38,12 @@ namespace BookCatalog.Portal.Controllers
             return Fail(null, "Bad 'authorId' property value.");
         }
 
+        [HttpGet]
+        public PartialViewResult AuthorModal(int authorId)
+        {
+            return PartialView("_AuthorModal", authorId);
+        }
+
         [HttpPost]
         public ActionResult Save(AuthorVM authorVM)
         {
