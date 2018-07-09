@@ -33,7 +33,8 @@ namespace BookCatalog.Portal
             #region JS Bundles
 
             bundles.Add(new ScriptBundle("~/Scripts/Knockout").Include(
-                      "~/Scripts/knockout-{version}.js"));
+                      "~/Scripts/knockout-{version}.js",
+                      "~/Scripts/knockout.mapping-latest.js"));
 
             #endregion
 

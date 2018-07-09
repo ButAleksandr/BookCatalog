@@ -16,7 +16,7 @@
     }
 
     self.initBindings = function () { // todo
-        ko.applyBindings(self, $(bookTableSelector)[0]);
+        ko.applyBindings(self.vm, $(bookTableSelector)[0]);
     }
 
     self.Refresh = function () {

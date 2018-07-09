@@ -34,6 +34,12 @@ namespace BookCatalog.Portal.Controllers
             return Fail(null, "Bad 'bookId' property value.");
         }
 
+        [HttpGet]
+        public PartialViewResult BookModal(int bookId)
+        {
+            return PartialView("_BookModal", bookId);
+        }
+
         [HttpPost]
         public JsonResult GetBooksList(DataTableVM dataTableVM)
         {

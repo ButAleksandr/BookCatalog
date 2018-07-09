@@ -12,12 +12,16 @@
 
 <div class="row mb-3" style="text-align: right" id="createBlock">
     <div class="col-xs-12">
-        <button class="btn btn-primary" data-bind="event : { click: BookModal.onCreate } ">Create book</button>
+        <button class="btn btn-primary" onclick="BookModal.Initialize(0)">Create book</button>
     </div>
 </div>
 
 @Html.Partial("_BookTable")
-@Html.Partial("_BookModal")
+
+<div id="bookModalContainer">
+
+</div>
+
 @Html.Partial("~/Views/Author/_AuthorModal.cshtml")
 
 @section scripts
@@ -30,21 +34,20 @@
 
     <script>
         $(document).ready(function () {
-            const bookModalSettings = { // todo: use approach from proj
-                getBookUrl: '@Url.Action("GetBook", "Book")',
-                saveBookUrl: '@Url.Action("Save", "Book")',
-                showAfterInit: false
-            },
-                authorModalSettings = {
-                    getAuthorUrl: '@Url.Action("Get", "Author")',
-                    saveAuthorUrl: '@Url.Action("Save", "Author")',
-                    showAfterInit: false,
-                    withCreate: false,
-                    TargetTable: BookTable
-                };
+            var authorModalSettings = {
+                getAuthorUrl: '@Url.Action("Get", "Author")',
+                saveAuthorUrl: '@Url.Action("Save", "Author")',
+                showAfterInit: false,
+                withCreate: false,
+                TargetTable: BookTable
+            };
+            
+            BookModal.getBookBaseUrl = '@Url.Action("GetBook", "Book")';
+            BookModal.saveBookBaseUrl = '@Url.Action("Save", "Book")';
+            BookModal.loadBookModalUrl = '@Url.Action("BookModal", "Book")';
 
             BookTable.Initialize();
-            BookModal.Initialize(null, bookModalSettings);
+            BookModal.Initialize(null, false);
             AuthorModal.Initialize(null, authorModalSettings);
         });
     </script>

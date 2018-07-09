@@ -1,132 +1,74 @@
 ﻿var BookModal = BookModal || {};
 
 (function () {
-    var self = this,
-        initStatus = {
-            Validation: false,
-            Bindings: false,
-            EventHandlers: false,
-            DatePicker: false
-        },
-        getBookBaseUrl = '',
-        saveBookBaseUrl = '';
+    var self = this;
 
-    const modalSelector = '#bookModal',
-        bookFormId = '#bookForm',
-        Urls = {
-            getBook: function (bookId) {
-                return getBookBaseUrl + "?bookId=" + bookId;
-            },
-            saveBook: function () {
-                return saveBookBaseUrl;
-            }
-        };
+    self.Initialize = function (bookId) {
+        if (bookId != null && bookId >= 0) {
+            var container = $("#bookModalContainer");
+            container.empty();
 
-    self.VM = {};
+            container.load(self.loadBookModalUrl + "?bookId=" + bookId, function () {
+                self.bookFormId = `#bookForm_${bookId}`;
+                self.modalSelector = `#bookModal_${bookId}`;
 
-    self.onCreate = function () {
-        self.Initialize(0, { showAfterInit: true });
+                $.get(self.getBookBaseUrl + "?bookId=" + bookId).done(loadHandler);
+
+                applyValidation();
+
+                initEventHandlers();
+
+                initDatePicker();
+            });
+        }
     }
 
-    self.JsObject = function () { // todo: remove
-        var vm = self.VM;
-        var authorIds = [];
-
-        $('.selectpicker option:selected').each(function () {
-            authorIds.push($(this).val());
-        })
-
-        JsObject = {
-            Id: vm.Id(),
-            Name: vm.Name(),
-            PageCount: vm.PageCount(),
-            ReleaseDate: vm.ReleaseDate(),
-            Rate: vm.Rate(),
-            Authors: vm.Authors(),
-            AuthorIds: authorIds
-        };
-
-        return JsObject;
-    }
-
-    function InitVM(initObject, bookModalSettings) {
+    function initVM(initData) {
         var inner = this;
 
-        if (!initObject) {
-            initObject = {
-                Id: 0,
-                Name: '',
-                PageCount: '',
-                ReleaseDate: moment(new Date()).format(Format.defaultDate.moment),
-                Rate: 0,
-                Authors: [],
-                AllAuthors: [],
-                AuthorIds: []
-            };
-        }       
+        inner = ko.mapping.fromJS(initData);
 
-        inner.Id = ko.observable(initObject.Id);
-        inner.Name = ko.observable(initObject.Name);
-        inner.PageCount = ko.observable(initObject.PageCount);
-        inner.ReleaseDate = ko.observable(initObject.ReleaseDate);
-        inner.Rate = ko.observable(initObject.Rate);
-        inner.Authors = ko.observable(initObject.Authors);
-        inner.AuthorIds = ko.observable(self.getAuthorIds(initObject.Authors));
-        inner.AllAuthors = ko.observable(initObject.AllAuthors);
+        inner.AllAuthors = ko.computed(function () {
+            var allAuthors = [];
 
-        $('.selectpicker').selectpicker('val', inner.AuthorIds());
-        $('.selectpicker').selectpicker('refresh');
+            $.each(this.AllAuthors, function (index, item) {
+                allAuthors.push($.extend(item, { FullName: `${item.FirstName} ${item.LastName}`}));
+            });
 
-        if (bookModalSettings
-            && bookModalSettings.hasOwnProperty('showAfterInit')
-            && bookModalSettings.showAfterInit) {
-            self.show();
-        };
+            return allAuthors;
+        }, initData);
+
+        inner.AuthorIds = ko.computed(function () {
+            var authorIds = [];
+
+            $.each(this.Authors, function (index, item) {
+                authorIds.push(item.Id);
+            });
+
+            return authorIds;
+        }, initData);
+
+        return inner;
     }
 
-    self.refreshVM = function (vm, initObject) {
-        vm.Id(initObject.Id);
-        vm.Name(initObject.Name);
-        vm.PageCount(initObject.PageCount);
-        vm.ReleaseDate(initObject.ReleaseDate);
-        vm.Rate(initObject.Rate);
-        vm.Authors(initObject.Authors);
-        vm.AuthorIds(self.getAuthorIds(initObject.Authors));
-        vm.AllAuthors(initObject.AllAuthors);
+    function loadHandler(result) {
+        if (result.Massage === "OK") {
+            result.Value.ReleaseDate = moment(result.Value.ReleaseDate).format(Format.defaultDate.moment);
 
-        $('.selectpicker').selectpicker('val', vm.AuthorIds());
-        $('.selectpicker').selectpicker('refresh');
-    }
+            self.vm = initVM(result.Value);
 
-    self.Initialize = function (bookId, bookModalSettings) {
-        self.initVariables(bookModalSettings);
+            ko.applyBindings(self.vm, $(self.bookFormId)[0]);
 
-        if (!initStatus.Bindings) {
-            self.VM = new InitVM(null, bookModalSettings);
-            self.initBindings(self.VM);
-        }        
+            refreshAuthorSelect(self.vm.AuthorIds());
 
-        if (!initStatus.Validation) {
-            self.applyValidation(bookFormId);
-        }
-
-        if (!initStatus.EventHandlers) {
-            self.initEventHandlers();
-        }
-
-        if (!initStatus.DatePicker) {
-            self.initDatePicker();
-        }
-
-        if (bookId != null && bookId >= 0) {
-            self.loadBook(bookId, bookModalSettings);
+            $(self.modalSelector).modal("show");
         }
     }
 
-    self.applyValidation = function (formId) {
-        $(formId).validate({
-            errorElement: 'span',
-            errorClass: 'badge badge-pill badge-danger',
+    function applyValidation() {
+        $(self.bookFormId).validate({
+            errorElement: "span",
+            errorClass: "badge badge-pill badge-danger",
             rules: {
                 Name: {
                     required: true,
@@ -151,85 +93,55 @@
             },
             highlight: function (element) {
                 $(element)
-                    .closest('.form-group').addClass('has-error');
+                    .closest(".form-group").addClass("has-error");
             },
             unhighlight: function (element) {
-                $(element).closest('.form-group').removeClass('has-error');                
+                $(element).closest(".form-group").removeClass("has-error");
             },
             success: function (label) {
-                label.closest('.form-group').removeClass('has-error');
+                label.closest(".form-group").removeClass("has-error");
             }
         });
 
-        $(formId).valid();
-
-        initStatus.Validation = true;
+        $(self.bookFormId).valid();
     }
 
-    self.show = function () {
-        $(modalSelector).modal("show");
+    function initEventHandlers() {
+        $(".close_bookModal").on("click", function() {
+            $(self.modalSelector).modal("hide");
+        });
+
+        $("#save_bookModal").on("click", saveBook);
     }
 
-    self.loadBook = function (bookId, bookModalSettings) {
-        $.get(Urls.getBook(bookId))
-            .done(function (result) {
-                if (result.Massage = "OK") {
-                    result.Value.ReleaseDate = moment(result.Value.ReleaseDate).format(Format.defaultDate.moment);
-                    self.refreshVM(self.VM, result.Value);                    
-                    self.show();                   
+    function saveBook() {
+        var mappingResult = ko.mapping.toJS(self.vm);
+        mappingResult.AuthorIds = [];
+
+        $(".selectpicker option:selected").each(function () {
+            mappingResult.AuthorIds.push($(this).val());
+        });
+
+        $.post(self.saveBookBaseUrl, mappingResult)
+            .done(function (data) {
+                if (data.IsSuccess) {
+                    $(self.modalSelector).modal("hide");
+
+                    BookTable.Refresh();
+                } else {
+                    alert(`Error of savign operation: ${data.Message}`);
                 }
             });
     }
 
-    self.saveBook = function () {
-        $.post(Urls.saveBook(), self.JsObject())
-            .done(function (data) {
-                if (data.IsSuccess) {
-                    $(modalSelector).modal("hide");
-                    BookTable.Refresh();
-                } else {
-                    alert("Error of savign operation./n" + data.Message);
-                }     
-            });
-    }
-
-    self.initVariables = function (bookModalSettings) {
-        if (bookModalSettings && bookModalSettings.hasOwnProperty('getBookUrl')) {
-            getBookBaseUrl = bookModalSettings.getBookUrl;
-            saveBookBaseUrl = bookModalSettings.saveBookUrl;
-        }
-    }
-
-    self.initBindings = function (vm) {
-        ko.applyBindings(vm, $(bookFormId)[0]);
-        ko.applyBindings(vm, $("#createBlock")[0]);        
-
-        initStatus.Bindings = true;
-    }
-
-    self.initDatePicker = function () {        
+    function initDatePicker() {
         $("#releaseDate").datepicker({
             format: Format.defaultDate.datePicker
         });
     }
 
-    self.hide = function () {
-        $(modalSelector).modal("hide");
-    }
-
-    self.initEventHandlers = function () {
-        $(".close_bookModal").on("click", self.hide);
-        $("#save_bookModal").on("click", self.saveBook);
-        initStatus.EventHandlers = true;
-    }
-
-    self.getAuthorIds = function (authors) {
-        var authorIds = [];
-
-        $.each(authors, function (index, item) {
-            authorIds.push(item.Id);
-        });
-
-        return authorIds;
+    function refreshAuthorSelect(ids) {
+        $(".selectpicker").selectpicker("val", ids);
+        $(".selectpicker").selectpicker("refresh");
     }
 }).apply(BookModal);
