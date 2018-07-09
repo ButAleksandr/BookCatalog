@@ -9,7 +9,8 @@
             DatePicker: false
         },
         getAuthorBaseUrl = '',
-        saveAuthorBaseUrl = '';
+        saveAuthorBaseUrl = '',
+        targetTable = {};
 
     const modalSelector = '#authorModal',
         authorFormId = '#authorForm',
@@ -76,7 +77,8 @@
 
         if (!initStatus.Bindings) {
             self.VM = new InitVM(null, authorModalSettings);
-            self.initBindings(self.VM);
+            self.initBindings(self.VM, authorModalSettings.withCreate);
+            targetTable = authorModalSettings.TargetTable;
         }        
 
         if (!initStatus.Validation) {
@@ -151,7 +153,8 @@
             .done(function (data) {
                 if (data.IsSuccess) {
                     $(modalSelector).modal("hide");
-                    AuthorTable.Refresh();
+
+                    targetTable.Refresh();
                 } else {
                     alert("Error of savign operation. " + data.Message);
                 }     
@@ -165,9 +168,12 @@
         }
     }
 
-    self.initBindings = function (vm) {
-        ko.applyBindings(vm, $(authorFormId)[0]);     
-        ko.applyBindings(vm, $("#createBlock")[0]);      
+    self.initBindings = function (vm, withCreate = true) {
+        ko.applyBindings(vm, $(authorFormId)[0]);    
+
+        if (withCreate) {
+            ko.applyBindings(vm, $("#createBlock")[0]);
+        }              
 
         initStatus.Bindings = true;
     }

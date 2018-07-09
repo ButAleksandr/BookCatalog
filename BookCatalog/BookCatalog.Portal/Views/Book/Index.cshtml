@@ -18,6 +18,7 @@
 
 @Html.Partial("_BookTable")
 @Html.Partial("_BookModal")
+@Html.Partial("~/Views/Author/_AuthorModal.cshtml")
 
 @section scripts
 {
@@ -25,6 +26,7 @@
     @Scripts.Render("~/Content/DataTable/datatables.min.js")
     @Scripts.Render("~/Scripts/Book/book-table.js")
     @Scripts.Render("~/Scripts/Book/book-modal.js")
+    @Scripts.Render("~/Scripts/Author/author-modal.js")
 
     <script>
         $(document).ready(function () {
@@ -32,9 +34,18 @@
                 getBookUrl: '@Url.Action("GetBook", "Book")',
                 saveBookUrl: '@Url.Action("Save", "Book")',
                 showAfterInit: false
-            }
+            },
+                authorModalSettings = {
+                    getAuthorUrl: '@Url.Action("Get", "Author")',
+                    saveAuthorUrl: '@Url.Action("Save", "Author")',
+                    showAfterInit: false,
+                    withCreate: false,
+                    TargetTable: BookTable
+                };
+
             BookTable.Initialize();
             BookModal.Initialize(null, bookModalSettings);
+            AuthorModal.Initialize(null, authorModalSettings);
         });
     </script>
 }

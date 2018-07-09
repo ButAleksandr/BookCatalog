@@ -23,20 +23,21 @@
 @section scripts
 {
     @Scripts.Render("~/Scripts/Knockout")
-    @Scripts.Render("~/Scripts/datatables.min.js")
+    @Scripts.Render("~/Content/DataTable/datatables.min.js")
     @Scripts.Render("~/Scripts/Author/author-table.js")
     @Scripts.Render("~/Scripts/Author/author-modal.js")
 
     <script>
         $(document).ready(function () {
-            const bookModalSettings = {
+            const modalSettings = {
                 getAuthorUrl: '@Url.Action("Get", "Author")',
                 saveAuthorUrl: '@Url.Action("Save", "Author")',
-                showAfterInit: false
+                showAfterInit: false,
+                TargetTable: AuthorTable
             }
 
             AuthorTable.Initialize();
-            AuthorModal.Initialize(null, bookModalSettings);
+            AuthorModal.Initialize(null, modalSettings);
         });
     </script>
 }

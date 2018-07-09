@@ -50,6 +50,9 @@
                             var authorFullName = author.FirstName + ' ' + author.LastName;
 
                             var link = $("<a href=\"#\">" + authorFullName + "</a>");
+                            link.attr({
+                                "onclick": "AuthorModal.Initialize('" + author.Id + "', { showAfterInit: true })"
+                            });
 
                             authorLinks.push(link.prop('outerHTML'));
                             authorsFullNames.push(authorFullName);

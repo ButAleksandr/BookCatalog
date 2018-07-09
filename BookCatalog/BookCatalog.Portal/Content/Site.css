@@ -30,6 +30,6 @@ textarea {
     display: inline !important;
 }
 
-#bookTable {
+#bookTable, #authorTable {
     width: 1000px;
 }
