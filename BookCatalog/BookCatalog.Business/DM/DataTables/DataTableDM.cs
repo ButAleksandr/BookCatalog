@@ -8,7 +8,7 @@ namespace BookCatalog.Business.DM.DataTables
     {
         public static string BuildSelectQuery(string tableName, DataTableVM dataTableVM)
         {
-            var reulstQuery = SelectPart(dataTableVM) 
+            var reulstQuery = SelectPart(dataTableVM)
                 + FromPart(tableName)
                 + SearchPart(dataTableVM)
                 + OrderByPart(dataTableVM)
@@ -22,6 +22,14 @@ namespace BookCatalog.Business.DM.DataTables
             var reulstQuery = CountPart()
                 + FromPart(tableName)
                 + SearchPart(dataTableVM);
+
+            return reulstQuery;
+        }
+
+        public static string BuildTotalCount(string tableName, DataTableVM dataTableVM)
+        {
+            var reulstQuery = CountPart()
+                + FromPart(tableName);
 
             return reulstQuery;
         }

@@ -42,7 +42,8 @@ namespace BookCatalog.Business.DM
         public DataTableResult<BookVM> GetBooksList(DataTableVM dataTableVM)
         {
             string selectQuery = DataTableDM.BuildSelectQuery("Books", dataTableVM),
-                countQuery = DataTableDM.BuildCountQuery("Books", dataTableVM);
+                countQuery = DataTableDM.BuildCountQuery("Books", dataTableVM),
+                totatQuery = DataTableDM.BuildTotalCount("Books", dataTableVM);
 
             var bookVMs = repository
                 .GetBooks(selectQuery).Select(x => Mapper.Map<BookVM>(x)).ToList();
@@ -52,8 +53,8 @@ namespace BookCatalog.Business.DM
             var table = new DataTableResult<BookVM>()
             {
                 Draw = dataTableVM.Draw,
-                RecordsFiltered = bookVMs.Count,
-                RecordsTotal = repository.GetCount(countQuery),
+                RecordsFiltered = repository.GetCount(countQuery),
+                RecordsTotal = repository.GetCount(totatQuery),
                 Data = bookVMs
             };
 
