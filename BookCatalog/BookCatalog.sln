@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookCatalog.Data", "BookCat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookCatalog.Data.Entity", "BookCatalog.Data.Entity\BookCatalog.Data.Entity.csproj", "{D6690AD8-4C1D-451D-87B8-048B566DDA90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookCatalog.Test", "BookCatalog.Data.Test\BookCatalog.Test.csproj", "{1AD0BE69-AC0E-4CB8-BEA9-AC0631DFC0CC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookCatalog.ViewModel", "BookCatalog.ViewModel\BookCatalog.ViewModel.csproj", "{5B3ED041-EEA1-4E33-BB22-4CFDEE36B310}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookCatalog.Business", "BookCatalog.Business\BookCatalog.Business.csproj", "{EC025376-DB23-4BBD-8724-9A317807D1D9}"
@@ -41,10 +39,6 @@ Global
 		{D6690AD8-4C1D-451D-87B8-048B566DDA90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6690AD8-4C1D-451D-87B8-048B566DDA90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6690AD8-4C1D-451D-87B8-048B566DDA90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1AD0BE69-AC0E-4CB8-BEA9-AC0631DFC0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AD0BE69-AC0E-4CB8-BEA9-AC0631DFC0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AD0BE69-AC0E-4CB8-BEA9-AC0631DFC0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AD0BE69-AC0E-4CB8-BEA9-AC0631DFC0CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5B3ED041-EEA1-4E33-BB22-4CFDEE36B310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B3ED041-EEA1-4E33-BB22-4CFDEE36B310}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B3ED041-EEA1-4E33-BB22-4CFDEE36B310}.Release|Any CPU.ActiveCfg = Release|Any CPU
