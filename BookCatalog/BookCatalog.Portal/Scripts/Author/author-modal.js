@@ -4,17 +4,15 @@
     var self = this;
 
     self.Initialize = function (authorId) {
-        if (authorId != null && authorId >= 0) {
-            var container = $("#authorModalContainer");
-            container.empty();
+        var container = $("#authorModalContainer");
+        container.empty();
 
-            container.load(self.getAuthorModalUrl + "?authorId=" + authorId, function () {
-                self.formId = `#authorForm_${authorId}`;
-                self.modalSelector = `#authorModal_${authorId}`;
+        container.load(self.getAuthorModalUrl + "?authorId=" + authorId, function () {
+            self.formId = `#authorForm_${authorId}`;
+            self.modalSelector = `#authorModal_${authorId}`;
 
-                loadAuthor(authorId);
-            });
-        }
+            loadAuthor(authorId);
+        });
     }
     
     function loadAuthor(authorId) {
@@ -28,17 +26,15 @@
     }
 
     function onLoad(result) {
-        if (result.Massage === "OK") {
-            self.vm = ko.mapping.fromJS(result.Value);;
+        self.vm = ko.mapping.fromJS(result.Value);;
 
-            applyValidation();
+        applyValidation();
 
-            initEventHandlers();
+        initEventHandlers();
 
-            ko.applyBindings(self.vm, $(self.formId)[0]);
+        ko.applyBindings(self.vm, $(self.formId)[0]);
 
-            $(self.modalSelector).modal("show");
-        }
+        $(self.modalSelector).modal("show");
     }
 
     function onSave(data) {

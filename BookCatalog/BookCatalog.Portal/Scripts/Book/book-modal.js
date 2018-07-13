@@ -4,23 +4,20 @@
     var self = this;
 
     self.Initialize = function (bookId) {
-        if (bookId != null && bookId >= 0) {
-            var container = $("#bookModalContainer");
-            container.empty();
+        var container = $("#bookModalContainer");
+        container.empty();
 
-            container.load(self.loadBookModalUrl + "?bookId=" + bookId, function () {
-                self.bookFormId = `#bookForm_${bookId}`;
-                self.modalSelector = `#bookModal_${bookId}`;
+        container.load(self.loadBookModalUrl + "?bookId=" + bookId, function () {
+            self.bookFormId = `#bookForm_${bookId}`;
+            self.modalSelector = `#bookModal_${bookId}`;
 
-                $.get(self.getBookBaseUrl + "?bookId=" + bookId).done(loadHandler);
+            $.get(self.getBookBaseUrl + "?bookId=" + bookId).done(loadHandler);
 
-                applyValidation();
+            applyValidation();
+            initEventHandlers();
+            initDatePicker();
+        });
 
-                initEventHandlers();
-
-                initDatePicker();
-            });
-        }
     }
 
     function initVM(initData) {

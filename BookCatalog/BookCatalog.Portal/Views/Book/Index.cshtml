@@ -30,10 +30,19 @@
 
     
     <script>
-        $(document).ready(function() {
-            @Html.Partial("Initializer/_BookTabeInitializer")
-            @Html.Partial("Initializer/_BookModalInitializer")
-            @Html.Partial("Initializer/_AuthorModalInitializer", "BookTable")
-        });
+            $(document).ready(function () {
+                BookTable.booksListUrl = '@Url.Action("GetBooksList", "Book")'; // todo: use action + entity/entities
+                BookTable.deleteBookUrl = '@Url.Action("Delete", "Book")';
+                BookTable.Initialize();
+
+                BookModal.getBookBaseUrl = '@Url.Action("GetBook", "Book")'; // todo: why base?
+                BookModal.saveBookBaseUrl = '@Url.Action("Save", "Book")';
+                BookModal.loadBookModalUrl = '@Url.Action("BookModal", "Book")';
+
+                AuthorModal.targetTable = BookTable;
+                AuthorModal.getAuthorBaseUrl = '@Url.Action("Get", "Author")';
+                AuthorModal.saveAuthorBaseUrl = '@Url.Action("Save", "Author")';
+                AuthorModal.getAuthorModalUrl = '@Url.Action("AuthorModal", "Author")';
+            });
     </script>
 }
