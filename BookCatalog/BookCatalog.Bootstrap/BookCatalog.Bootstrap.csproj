@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Practices.ObjectBuilder.dll.3.1.0\lib\2.0\Microsoft.Practices.ObjectBuilder.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
@@ -45,13 +42,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
-      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
@@ -73,17 +64,9 @@
       <Project>{0e19b147-044f-4829-84af-37c0c0286dc9}</Project>
       <Name>BookCatalog.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BookCatalog.Data.Entity\BookCatalog.Data.Entity.csproj">
-      <Project>{d6690ad8-4c1d-451d-87b8-048b566dda90}</Project>
-      <Name>BookCatalog.Data.Entity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BookCatalog.Data\BookCatalog.Data.csproj">
       <Project>{0f316f19-c744-4b66-ad22-93f850b297a2}</Project>
       <Name>BookCatalog.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BookCatalog.ViewModel\BookCatalog.ViewModel.csproj">
-      <Project>{5b3ed041-eea1-4e33-bb22-4cfdee36b310}</Project>
-      <Name>BookCatalog.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
